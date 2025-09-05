@@ -20,6 +20,15 @@
             --whatsapp: #25D366;
             --session: #00bf8f;
             --audio-green: #25D366; /* New green color for audio */
+            
+            /* Social media brand colors */
+            --facebook: #3b5998;
+            --twitter: #1da1f2;
+            --instagram: #e1306c;
+            --github: #333;
+            --youtube: #ff0000;
+            --telegram: #0088cc;
+            --discord: #7289da;
         }
         
         * {
@@ -252,6 +261,7 @@
         .section.visible {
             opacity: 1;
             transform: translateY(0);
+            animation: fadeIn 0.6s ease;
         }
         
         .section::before {
@@ -474,16 +484,115 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
             color: white;
             text-decoration: none;
             font-size: 1.2rem;
             transition: all 0.3s ease;
         }
         
+        /* Social media brand colors */
+        .social-icon.facebook { background-color: var(--facebook); }
+        .social-icon.twitter { background-color: var(--twitter); }
+        .social-icon.instagram { 
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        }
+        .social-icon.github { background-color: var(--github); }
+        .social-icon.youtube { background-color: var(--youtube); }
+        .social-icon.telegram { background-color: var(--telegram); }
+        .social-icon.discord { background-color: var(--discord); }
+        
         .social-icon:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Deployment Section Styles */
+        .deployment-section {
+            background-color: black;
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .deployment-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 2rem 0;
+        }
+        
+        .deployment-title {
+            margin-top: 0;
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .deploy-button {
+            width: 140px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0px 15px;
+            background-color: red;
+            border-radius: 10px;
+            border: none;
+            color: white;
+            position: relative;
+            cursor: pointer;
+            font-weight: 900;
+            transition-duration: .2s;
+            background: linear-gradient(0deg, #000, #272727);
+            text-decoration: none;
+        }
+        
+        .deploy-button:before, .deploy-button:after {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: -2px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #48ff00, #15ff00, #000000,#000000, #ff0000);
+            background-size: 400%;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            z-index: -1;
+            animation: steam 10s linear infinite;
+        }
+        
+        @keyframes steam {
+            0% {
+                background-position: 0 0;
+            }
+            
+            50% {
+                background-position: 400% 0;
+            }
+            
+            100% {
+                background-position: 0 0;
+            }
+        }
+        
+        .deploy-button:after {
+            filter: blur(50px);
+        }
+        
+        .deploy-button span {
+            z-index: 1;
+        }
+        
+        .deployment-footer {
+            margin-top: 2rem;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 14px;
         }
         
         /* Responsive Styles */
@@ -536,6 +645,10 @@
                 top: 50px;
                 right: 10px;
                 width: 180px;
+            }
+            
+            .social-icons {
+                flex-wrap: wrap;
             }
         }
         
@@ -693,6 +806,37 @@
             </div>
         </div>
 
+        <!-- New Deployment Section -->
+        <div class="section deployment-section" id="deployment">
+            <h2><i class="fas fa-cloud-upload-alt"></i> Deploy on Multiple Platforms</h2>
+            <p>Choose from various platforms to deploy your CASEYRHODES XMD bot</p>
+            
+            <div class="deployment-container">
+                <h3 class="deployment-title">DEPLOY ON</h3>
+                <a href="https://dashboard.heroku.com/new?template=https://github.com/caseyweb/CASEYRHODES-XMD/tree/main" class="deploy-button" target="_blank"> <span>HEROKU</span> </a>
+                <a href="https://dashboard.render.com/web/new" class="deploy-button" target="_blank"> <span>RENDER</span> </a>
+                <a href="https://host.talkdrove.com/dashboard/select-bot/prepare-deployment?botId=39" class="deploy-button" target="_blank"> <span>TALKDROVE</span> </a>
+                <a href="https://repl.it/github/caseyweb/CASEYRHODES-XMD" class="deploy-button" target="_blank"> <span>REPLIT</span> </a>
+                <a href="https://github.com/codespaces/new" class="deploy-button" target="_blank"> <span>CODESPACE</span> </a>
+                <a href="https://glitch.com/signup" class="deploy-button" target="_blank"> <span>GLITCH</span> </a>
+                <a href="https://railway.app/new" class="deploy-button" target="_blank"> <span>RAILWAY</span> </a>
+                
+                <p>REPORT ERROR</p>
+                <a href="https://wa.me/++254781496274?text=HAVE_ERROR_CASEYRHODES" class="deploy-button" target="_blank"> <span>ERROR</span> </a>
+                
+                <div id="music-player">
+                    <audio controls autoplay loop>
+                        <source src="https://files.catbox.moe/92gu1n.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+            
+            <div class="deployment-footer">
+                ᴍᴀᴅᴇ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ<span id="currentYear"></span>
+            </div>
+        </div>
+
         <div class="features section" id="features">
             <h2><i class="fas fa-star"></i> Features</h2>
             <table class="feature-table">
@@ -769,22 +913,28 @@ jobs:
         <div class="container">
             <p>&copy; 2023 CASEYRHODES XMD. All rights reserved.</p>
             
-            <!-- Social Media Icons -->
+            <!-- Social Media Icons with actual brand colors -->
             <div class="social-icons">
-                <a href="#" class="social-icon" title="Facebook">
+                <a href="#" class="social-icon facebook" title="Facebook">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="#" class="social-icon" title="Twitter">
+                <a href="#" class="social-icon twitter" title="Twitter">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a href="#" class="social-icon" title="Instagram">
+                <a href="#" class="social-icon instagram" title="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="#" class="social-icon" title="GitHub">
+                <a href="#" class="social-icon github" title="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="#" class="social-icon" title="YouTube">
+                <a href="#" class="social-icon youtube" title="YouTube">
                     <i class="fab fa-youtube"></i>
+                </a>
+                <a href="#" class="social-icon telegram" title="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="#" class="social-icon discord" title="Discord">
+                    <i class="fab fa-discord"></i>
                 </a>
             </div>
         </div>
@@ -859,7 +1009,7 @@ jobs:
                 showAudioBtn.innerHTML = '<i class="fas fa-music"></i>';
                 showAudioBtn.style.position = 'fixed';
                 showAudioBtn.style.bottom = '20px';
-                showAudioBtn.style.right = '20px';
+                showAudioBtn.style.right: '20px';
                 showAudioBtn.style.width = '50px';
                 showAudioBtn.style.height = '50px';
                 showAudioBtn.style.borderRadius = '50%';
@@ -922,6 +1072,9 @@ jobs:
                 }
             });
         });
+        
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = ' ' + new Date().getFullYear();
         
         // Initialize on page load
         window.addEventListener('load', function() {
