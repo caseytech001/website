@@ -33,6 +33,7 @@
             color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
+            padding-bottom: 80px; /* Space for floating audio */
         }
         
         .container {
@@ -76,10 +77,11 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             border: 2px solid var(--primary);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: float 6s ease-in-out infinite;
         }
         
         .logo:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
             box-shadow: 0 15px 35px rgba(138, 43, 226, 0.3);
         }
         
@@ -91,6 +93,7 @@
             background-clip: text;
             color: transparent;
             font-weight: 700;
+            animation: glow 2s ease-in-out infinite alternate;
         }
         
         .header p {
@@ -99,18 +102,55 @@
             margin-bottom: 2rem;
         }
         
-        /* Music Player */
-        #music-player {
-            max-width: 400px;
-            margin: 0 auto 2rem;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        /* Floating Audio Player */
+        .floating-audio {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: rgba(18, 18, 18, 0.9);
+            border-radius: 50px;
+            padding: 10px 20px;
+            box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+            animation: pulse 2s infinite;
+            transition: all 0.3s ease;
         }
         
-        #music-player audio {
+        .floating-audio:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.7);
+        }
+        
+        .floating-audio .audio-text {
+            margin-right: 15px;
+            font-size: 0.9rem;
+            color: var(--light);
+            white-space: nowrap;
+        }
+        
+        .floating-audio audio {
             width: 100%;
             outline: none;
+            border-radius: 30px;
+        }
+        
+        .floating-audio .close-btn {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.2rem;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .floating-audio .close-btn:hover {
+            color: var(--accent);
         }
         
         /* Section Styles */
@@ -123,6 +163,14 @@
             border: 1px solid var(--gray);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .section::before {
@@ -270,8 +318,13 @@
             border-bottom: none;
         }
         
+        .feature-table tr {
+            transition: all 0.3s ease;
+        }
+        
         .feature-table tr:hover {
-            background: rgba(138, 43, 226, 0.05);
+            background: rgba(138, 43, 226, 0.1);
+            transform: translateX(5px);
         }
         
         /* Workflow Code */
@@ -308,6 +361,7 @@
         
         .copy-btn:hover {
             background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
         }
         
         /* Footer */
@@ -354,21 +408,72 @@
             .feature-table th, .feature-table td {
                 padding: 1rem;
             }
+            
+            .floating-audio {
+                width: calc(100% - 40px);
+                left: 20px;
+                right: 20px;
+                bottom: 10px;
+            }
         }
         
-        /* Animation */
-        @keyframes fadeIn {
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
+            to { text-shadow: 0 0 15px var(--primary), 0 0 20px var(--primary), 0 0 25px var(--accent); }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5); }
+            50% { box-shadow: 0 5px 35px rgba(138, 43, 226, 0.8); }
+            100% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5); }
+        }
+        
+        @keyframes slideIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .animate {
-            animation: fadeIn 0.6s ease forwards;
+        /* Particle background effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
         }
         
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(138, 43, 226, 0.3);
+            animation: float-particle 15s infinite linear;
+        }
+        
+        @keyframes float-particle {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100vw);
+                opacity: 0;
+            }
+        }
         
         /* Neon glow effect */
         .neon-text {
@@ -378,6 +483,9 @@
     </style>
 </head>
 <body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+    
     <div class="header">
         <div class="container">
             <div class="logo-container">
@@ -386,18 +494,23 @@
             
             <h1 class="neon-text">CASEYRHODES XMD AUDIO</h1>
             <p>Advanced WhatsApp Bot with Powerful Features</p>
-            
-            <div id="music-player">
-                <audio controls autoplay loop>
-                    <source src="https://files.catbox.moe/92gu1n.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
         </div>
     </div>
 
+    <!-- Floating Audio Player -->
+    <div class="floating-audio">
+        <span class="audio-text">Now Playing:</span>
+        <audio controls autoplay loop>
+            <source src="https://files.catbox.moe/92gu1n.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <button class="close-btn" id="minimize-audio">
+            <i class="fas fa-minus"></i>
+        </button>
+    </div>
+
     <div class="container">
-        <div class="section animate">
+        <div class="section">
             <h2><i class="fas fa-bullhorn"></i> Follow Our Official Channel</h2>
             <p>Stay updated with the latest features and announcements from CASEYRHODES XMD</p>
             <div class="btn-container">
@@ -407,7 +520,7 @@
             </div>
         </div>
 
-        <div class="section animate delay-1">
+        <div class="section">
             <h2><i class="fas fa-qrcode"></i> Get Your Session ID</h2>
             <p>Generate your WhatsApp session ID to deploy the bot and start using all the amazing features</p>
             <div class="btn-container">
@@ -417,7 +530,7 @@
             </div>
         </div>
 
-        <div class="section animate delay-2">
+        <div class="section">
             <h2><i class="fas fa-rocket"></i> Deploy Your Bot</h2>
             <p>Choose your preferred deployment method to get started with CASEYRHODES XMD</p>
             <div class="btn-container">
@@ -430,7 +543,7 @@
             </div>
         </div>
 
-        <div class="features section animate delay-3">
+        <div class="features section">
             <h2><i class="fas fa-star"></i> Features</h2>
             <table class="feature-table">
                 <thead>
@@ -509,6 +622,48 @@ jobs:
     </div>
 
     <script>
+        // Create particle background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                
+                // Apply styles
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}vw`;
+                particle.style.top = `${posY}vh`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Scroll animation for sections
+        function checkScroll() {
+            const sections = document.querySelectorAll('.section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const triggerBottom = window.innerHeight * 0.85;
+                
+                if (sectionTop < triggerBottom) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+        
         // Copy code functionality
         function copyCode() {
             const code = document.querySelector('.workflow-code pre').innerText;
@@ -521,23 +676,57 @@ jobs:
             });
         }
         
-        // Add animations when scrolling
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.animate');
+        // Toggle floating audio player
+        document.getElementById('minimize-audio').addEventListener('click', function() {
+            const audioPlayer = document.querySelector('.floating-audio');
+            audioPlayer.style.transform = 'translateY(100px)';
+            audioPlayer.style.opacity = '0';
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                    }
+            setTimeout(() => {
+                audioPlayer.style.display = 'none';
+                
+                // Create a button to show audio again
+                const showAudioBtn = document.createElement('button');
+                showAudioBtn.innerHTML = '<i class="fas fa-music"></i>';
+                showAudioBtn.style.position = 'fixed';
+                showAudioBtn.style.bottom = '20px';
+                showAudioBtn.style.right = '20px';
+                showAudioBtn.style.width = '50px';
+                showAudioBtn.style.height = '50px';
+                showAudioBtn.style.borderRadius = '50%';
+                showAudioBtn.style.background = 'var(--primary)';
+                showAudioBtn.style.color = 'white';
+                showAudioBtn.style.border = 'none';
+                showAudioBtn.style.cursor = 'pointer';
+                showAudioBtn.style.zIndex = '1000';
+                showAudioBtn.style.boxShadow = '0 5px 15px rgba(138, 43, 226, 0.5)';
+                showAudioBtn.id = 'show-audio-btn';
+                
+                showAudioBtn.addEventListener('click', function() {
+                    audioPlayer.style.display = 'flex';
+                    audioPlayer.style.transform = 'translateY(0)';
+                    audioPlayer.style.opacity = '1';
+                    this.remove();
                 });
-            }, { threshold: 0.1 });
+                
+                document.body.appendChild(showAudioBtn);
+            }, 300);
+        });
+        
+        // Initialize on page load
+        window.addEventListener('load', function() {
+            createParticles();
+            checkScroll();
             
-            animatedElements.forEach(el => {
-                el.style.opacity = 0;
-                observer.observe(el);
+            // Animate sections sequentially
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                section.style.transitionDelay = `${index * 0.2}s`;
             });
         });
+        
+        // Check scroll on scroll event
+        window.addEventListener('scroll', checkScroll);
     </script>
 </body>
 </html>
