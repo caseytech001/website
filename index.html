@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CASEYRHODES XMD - Advanced WhatsApp Bot</title>
+    <title>BMB TECH - Advanced Technology Solutions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <style>
         :root {
-            --primary: #8a2be2;
-            --secondary: #00bf8f;
-            --accent: #ff00ff;
-            --dark: #121212;
-            --darker: #0a0a0a;
-            --light: #f8f8f8;
-            --gray: #2a2a2a;
-            --heroku: #430098;
-            --pterodactyl: #2f3640;
-            --whatsapp: #25D366;
-            --session: #00bf8f;
+            --primary: #2563eb;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #111827;
+            --darker: #0a0f1d;
+            --light: #f3f4f6;
+            --gray: #374151;
+            --card-bg: #1f2937;
         }
         
         * {
@@ -29,11 +26,10 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--darker);
+            background: linear-gradient(to bottom, var(--darker), var(--dark));
             color: var(--light);
             line-height: 1.6;
-            overflow-x: hidden;
-            padding-bottom: 80px; /* Space for floating audio */
+            min-height: 100vh;
         }
         
         .container {
@@ -43,690 +39,367 @@
         }
         
         /* Header Styles */
-        .header {
-            background: linear-gradient(135deg, var(--dark), var(--darker));
-            padding: 3rem 1rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
+        header {
+            background: rgba(31, 41, 55, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
-            z-index: 1;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .logo-container {
-            position: relative;
-            z-index: 2;
-            margin-bottom: 1.5rem;
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
-            max-width: 100%;
-            width: auto;
-            height: auto;
-            max-height: 300px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            border: 2px solid var(--primary);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .logo:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.3);
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
             background: linear-gradient(45deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            font-weight: 700;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-        }
-        
-        /* Floating Audio Player */
-        .floating-audio {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 300px;
-            background: rgba(18, 18, 18, 0.9);
-            border-radius: 50px;
-            padding: 10px 20px;
-            box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5);
-            display: flex;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--primary);
-            animation: pulse 2s infinite;
-            transition: all 0.3s ease;
-        }
-        
-        .floating-audio:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.7);
-        }
-        
-        .floating-audio .audio-text {
-            margin-right: 15px;
-            font-size: 0.9rem;
-            color: var(--light);
-            white-space: nowrap;
-        }
-        
-        .floating-audio audio {
-            width: 100%;
-            outline: none;
-            border-radius: 30px;
-        }
-        
-        .floating-audio .close-btn {
-            background: none;
-            border: none;
-            color: var(--light);
-            font-size: 1.2rem;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        
-        .floating-audio .close-btn:hover {
-            color: var(--accent);
-        }
-        
-        /* Section Styles */
-        .section {
-            background: var(--dark);
-            border-radius: 15px;
-            padding: 2.5rem;
-            margin: 2rem 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            border: 1px solid var(--gray);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-        
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary), var(--accent));
-        }
-        
-        .section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--light);
             display: flex;
             align-items: center;
         }
         
-        .section h2 i {
+        .logo i {
             margin-right: 10px;
             color: var(--primary);
         }
         
-        .section p {
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-        
-        /* Button Styles */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+        /* Category Dropdown */
+        .category-dropdown {
             position: relative;
-            overflow: hidden;
-            z-index: 1;
         }
         
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
+        .category-btn {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
             transition: all 0.3s ease;
-            z-index: -1;
         }
         
-        .btn:hover::before {
-            width: 100%;
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
         }
         
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        .category-btn i {
+            margin-left: 8px;
         }
         
-        .btn:active {
+        .dropdown-content {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 10px;
+            background: var(--card-bg);
+            min-width: 220px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown-content.show {
+            opacity: 1;
+            visibility: visible;
             transform: translateY(0);
         }
         
-        .btn i {
-            margin-right: 8px;
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1.2rem;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         
-        .btn-heroku {
-            background: var(--heroku);
-            color: white;
-            box-shadow: 0 5px 15px rgba(67, 0, 152, 0.3);
-        }
-        
-        .btn-pterodactyl {
-            background: var(--pterodactyl);
-            color: white;
-            box-shadow: 0 5px 15px rgba(47, 54, 64, 0.3);
-        }
-        
-        .btn-session {
-            background: var(--session);
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 191, 143, 0.3);
-        }
-        
-        .btn-channel {
-            background: var(--whatsapp);
-            color: white;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-        }
-        
-        .btn-support {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            color: white;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
-        }
-        
-        /* Button Container */
-        .btn-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            margin: 1.5rem 0;
-        }
-        
-        /* Feature Table */
-        .features {
-            margin: 3rem 0;
-        }
-        
-        .feature-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--dark);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin: 1.5rem 0;
-        }
-        
-        .feature-table th, .feature-table td {
-            padding: 1.2rem 1.5rem;
-            text-align: left;
-            border-bottom: 1px solid var(--gray);
-        }
-        
-        .feature-table th {
-            background: var(--primary);
-            color: white;
-            font-weight: 500;
-        }
-        
-        .feature-table tr:last-child td {
+        .dropdown-content a:last-child {
             border-bottom: none;
         }
         
-        .feature-table tr {
+        .dropdown-content a:hover {
+            background: rgba(37, 99, 235, 0.1);
+            padding-left: 1.5rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0 3rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        /* Tech Solutions Section */
+        .tech-section {
+            padding: 2rem 0 4rem;
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .tech-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tech-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .tech-card h3 i {
+            margin-right: 10px;
+        }
+        
+        .tech-card p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+        
+        .repo-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .repo-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
         
-        .feature-table tr:hover {
-            background: rgba(138, 43, 226, 0.1);
-            transform: translateX(5px);
+        .repo-btn i {
+            margin-right: 8px;
         }
         
-        /* Workflow Code */
-        .workflow-code {
-            background: var(--gray);
-            color: var(--light);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 2rem 0;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            position: relative;
-        }
-        
-        .workflow-code pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
+        .repo-btn.view {
+            background: var(--primary);
             color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.2s ease;
         }
         
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
+        .repo-btn.fork {
+            background: var(--gray);
+            color: white;
+        }
+        
+        .repo-btn.pair {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .repo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         /* Footer */
-        .footer {
+        footer {
+            background: var(--darker);
+            padding: 2rem 0;
             text-align: center;
-            padding: 2rem;
             margin-top: 3rem;
-            background: var(--dark);
-            border-top: 1px solid var(--gray);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .footer p {
+        footer p {
             opacity: 0.7;
+            font-size: 0.9rem;
         }
         
         /* Responsive Styles */
         @media (max-width: 768px) {
-            .header {
-                padding: 2rem 1rem;
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
             }
             
-            .header h1 {
-                font-size: 2rem;
+            .hero h1 {
+                font-size: 1.8rem;
             }
             
-            .section {
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .tech-card {
                 padding: 1.5rem;
             }
             
-            .btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
-            }
-            
-            .btn-container {
+            .repo-buttons {
                 flex-direction: column;
-                align-items: center;
             }
             
-            .feature-table {
-                font-size: 0.9rem;
+            .repo-btn {
+                width: 100%;
+                justify-content: center;
             }
             
-            .feature-table th, .feature-table td {
-                padding: 1rem;
+            .dropdown-content {
+                right: -50px;
             }
-            
-            .floating-audio {
-                width: calc(100% - 40px);
-                left: 20px;
-                right: 20px;
-                bottom: 10px;
-            }
-        }
-        
-        /* Animations */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        @keyframes glow {
-            from { text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
-            to { text-shadow: 0 0 15px var(--primary), 0 0 20px var(--primary), 0 0 25px var(--accent); }
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5); }
-            50% { box-shadow: 0 5px 35px rgba(138, 43, 226, 0.8); }
-            100% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5); }
-        }
-        
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Particle background effect */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(138, 43, 226, 0.3);
-            animation: float-particle 15s infinite linear;
-        }
-        
-        @keyframes float-particle {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100vw);
-                opacity: 0;
-            }
-        }
-        
-        /* Neon glow effect */
-        .neon-text {
-            text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary), 0 0 20px var(--accent), 0 0 35px var(--accent), 0 0 40px var(--accent);
-            color: white;
         }
     </style>
 </head>
 <body>
-    <!-- Particle Background -->
-    <div class="particles" id="particles"></div>
-    
-    <div class="header">
+    <!-- Header with Category Dropdown -->
+    <header>
         <div class="container">
-            <div class="logo-container">
-                <img src="https://i.ibb.co/vCsY0jPS/lordcasey.jpg" alt="CASEYRHODES-XMD" class="logo">
-            </div>
-            
-            <h1 class="neon-text">CASEYRHODES XMD AUDIO</h1>
-            <p>Advanced WhatsApp Bot with Powerful Features</p>
-        </div>
-    </div>
-
-    <!-- Floating Audio Player -->
-    <div class="floating-audio">
-        <span class="audio-text">Now Playing:</span>
-        <audio controls autoplay loop>
-            <source src="https://files.catbox.moe/92gu1n.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <button class="close-btn" id="minimize-audio">
-            <i class="fas fa-minus"></i>
-        </button>
-    </div>
-
-    <div class="container">
-        <div class="section">
-            <h2><i class="fas fa-bullhorn"></i> Follow Our Official Channel</h2>
-            <p>Stay updated with the latest features and announcements from CASEYRHODES XMD</p>
-            <div class="btn-container">
-                <a href="https://whatsapp.com/channel/0029VakUEfb4o7qVdkwPk83E" class="btn btn-channel">
-                    <i class="fab fa-whatsapp"></i> Join Channel
-                </a>
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-microchip"></i> BMB TECH
+                </div>
+                
+                <div class="category-dropdown">
+                    <button class="category-btn">
+                        Categories <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#"><i class="fas fa-robot"></i> Bots & Automation</a>
+                        <a href="#"><i class="fas fa-code"></i> Development Tools</a>
+                        <a href="#"><i class="fas fa-mobile-alt"></i> Mobile Solutions</a>
+                        <a href="#"><i class="fas fa-cloud"></i> Cloud Services</a>
+                        <a href="#"><i class="fas fa-shield-alt"></i> Security</a>
+                        <a href="#"><i class="fas fa-database"></i> Data Analytics</a>
+                    </div>
+                </div>
             </div>
         </div>
+    </header>
 
-        <div class="section">
-            <h2><i class="fas fa-qrcode"></i> Get Your Session ID</h2>
-            <p>Generate your WhatsApp session ID to deploy the bot and start using all the amazing features</p>
-            <div class="btn-container">
-                <a href="https://caseypaircode-e6b138f710a8.herokuapp.com/" class="btn btn-session">
-                    <i class="fas fa-qrcode"></i> Get Pairing Code
-                </a>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-rocket"></i> Deploy Your Bot</h2>
-            <p>Choose your preferred deployment method to get started with CASEYRHODES XMD</p>
-            <div class="btn-container">
-                <a href="https://dashboard.heroku.com/new-app?template=https://github.com/caseyweb/CASEYRHODES-XMD" class="btn btn-heroku">
-                    <i class="fab fa-heroku"></i> Deploy on Heroku
-                </a>
-                <a href="https://github.com/caseyweb/QUEEEN-CHARITY/archive/refs/heads/main.zip" class="btn btn-pterodactyl">
-                    <i class="fas fa-server"></i> Download for Pterodactyl
-                </a>
-            </div>
-        </div>
-
-        <div class="features section">
-            <h2><i class="fas fa-star"></i> Features</h2>
-            <table class="feature-table">
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Features</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Media</td>
-                        <td>Image, Video, Audio editing tools</td>
-                    </tr>
-                    <tr>
-                        <td>Utilities</td>
-                        <td>Sticker maker, QR code generator, File converter</td>
-                    </tr>
-                    <tr>
-                        <td>Fun</td>
-                        <td>Games, Meme generator, Quotes</td>
-                    </tr>
-                    <tr>
-                        <td>Productivity</td>
-                        <td>Reminders, Downloads, Group management</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="section">
-            <h2><i class="fas fa-sync-alt"></i> Auto-Update Feature</h2>
-            <p>Your bot updates automatically with the latest features and security improvements</p>
-            
-            <div class="workflow-code">
-                <button class="copy-btn" onclick="copyCode()">
-                    <i class="fas fa-copy"></i> Copy
-                </button>
-                <pre>
-name: Node.js CI
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.x]
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm start</pre>        
-            </div>
-            
-            <div class="btn-container">
-                <a href="https://wa.me/+254112192119?text=𝐂𝐀𝐒𝐄𝐘𝐑𝐇𝐎𝐃𝐄𝐒+𝐗𝐌𝐃+𝐕𝟐" class="btn btn-support">
-                    <i class="fab fa-whatsapp"></i> Report Issues
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="container">
-            <p>&copy; 2023 CASEYRHODES XMD. All rights reserved.</p>
+            <h1>Advanced Technology Solutions</h1>
+            <p>Cutting-edge tools and platforms for digital innovation, automation, and development. Empowering modern tech enthusiasts with next-generation solutions.</p>
         </div>
-    </div>
+    </section>
+
+    <!-- Tech Solutions Section -->
+    <section class="tech-section">
+        <div class="container">
+            <h2 class="section-title">Our Tech Solutions</h2>
+            
+            <div class="tech-card">
+                <h3><i class="fab fa-whatsapp"></i> BMB-XMD</h3>
+                <p>Advanced WhatsApp Bot with multiple features for automation, moderation, and entertainment. Supports media editing, utilities, games, and productivity tools.</p>
+                
+                <div class="repo-buttons">
+                    <a href="#" class="repo-btn view">
+                        <i class="fas fa-eye"></i> View Repo
+                    </a>
+                    <a href="#" class="repo-btn fork">
+                        <i class="fas fa-code-branch"></i> Fork
+                    </a>
+                    <a href="#" class="repo-btn pair">
+                        <i class="fas fa-qrcode"></i> Pair Site
+                    </a>
+                </div>
+            </div>
+            
+            <div class="tech-card">
+                <h3><i class="fas fa-server"></i> BMB-CLOUD</h3>
+                <p>Cloud deployment solutions with scalable infrastructure and seamless integration. Supports all major platforms with one-click deployment options.</p>
+                
+                <div class="repo-buttons">
+                    <a href="#" class="repo-btn view">
+                        <i class="fas fa-eye"></i> View Repo
+                    </a>
+                    <a href="#" class="repo-btn fork">
+                        <i class="fas fa-code-branch"></i> Fork
+                    </a>
+                </div>
+            </div>
+            
+            <div class="tech-card">
+                <h3><i class="fas fa-mobile-alt"></i> BMB-MOBILE</h3>
+                <p>Cross-platform mobile development framework with native performance and modern UI components. Build once, deploy everywhere.</p>
+                
+                <div class="repo-buttons">
+                    <a href="#" class="repo-btn view">
+                        <i class="fas fa-eye"></i> View Repo
+                    </a>
+                    <a href="#" class="repo-btn fork">
+                        <i class="fas fa-code-branch"></i> Fork
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 BMB TECH. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
-        // Create particle background
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
+        // Category dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryBtn = document.querySelector('.category-btn');
+            const dropdownContent = document.querySelector('.dropdown-content');
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random properties
-                const size = Math.random() * 10 + 2;
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                const delay = Math.random() * 15;
-                const duration = Math.random() * 10 + 15;
-                
-                // Apply styles
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}vw`;
-                particle.style.top = `${posY}vh`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-        
-        // Scroll animation for sections
-        function checkScroll() {
-            const sections = document.querySelectorAll('.section');
+            categoryBtn.addEventListener('click', function() {
+                dropdownContent.classList.toggle('show');
+            });
             
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const triggerBottom = window.innerHeight * 0.85;
-                
-                if (sectionTop < triggerBottom) {
-                    section.classList.add('visible');
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.category-dropdown')) {
+                    dropdownContent.classList.remove('show');
                 }
             });
-        }
-        
-        // Copy code functionality
-        function copyCode() {
-            const code = document.querySelector('.workflow-code pre').innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                const btn = document.querySelector('.copy-btn');
-                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
-                }, 2000);
-            });
-        }
-        
-        // Toggle floating audio player
-        document.getElementById('minimize-audio').addEventListener('click', function() {
-            const audioPlayer = document.querySelector('.floating-audio');
-            audioPlayer.style.transform = 'translateY(100px)';
-            audioPlayer.style.opacity = '0';
-            
-            setTimeout(() => {
-                audioPlayer.style.display = 'none';
-                
-                // Create a button to show audio again
-                const showAudioBtn = document.createElement('button');
-                showAudioBtn.innerHTML = '<i class="fas fa-music"></i>';
-                showAudioBtn.style.position = 'fixed';
-                showAudioBtn.style.bottom = '20px';
-                showAudioBtn.style.right = '20px';
-                showAudioBtn.style.width = '50px';
-                showAudioBtn.style.height = '50px';
-                showAudioBtn.style.borderRadius = '50%';
-                showAudioBtn.style.background = 'var(--primary)';
-                showAudioBtn.style.color = 'white';
-                showAudioBtn.style.border = 'none';
-                showAudioBtn.style.cursor = 'pointer';
-                showAudioBtn.style.zIndex = '1000';
-                showAudioBtn.style.boxShadow = '0 5px 15px rgba(138, 43, 226, 0.5)';
-                showAudioBtn.id = 'show-audio-btn';
-                
-                showAudioBtn.addEventListener('click', function() {
-                    audioPlayer.style.display = 'flex';
-                    audioPlayer.style.transform = 'translateY(0)';
-                    audioPlayer.style.opacity = '1';
-                    this.remove();
-                });
-                
-                document.body.appendChild(showAudioBtn);
-            }, 300);
         });
-        
-        // Initialize on page load
-        window.addEventListener('load', function() {
-            createParticles();
-            checkScroll();
-            
-            // Animate sections sequentially
-            const sections = document.querySelectorAll('.section');
-            sections.forEach((section, index) => {
-                section.style.transitionDelay = `${index * 0.2}s`;
-            });
-        });
-        
-        // Check scroll on scroll event
-        window.addEventListener('scroll', checkScroll);
     </script>
 </body>
 </html>
