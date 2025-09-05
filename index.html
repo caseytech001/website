@@ -6,6 +6,7 @@
     <title>CASEYRHODES XMD - Advanced WhatsApp Bot</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #8a2be2;
@@ -19,6 +20,8 @@
             --pterodactyl: #2f3640;
             --whatsapp: #25D366;
             --session: #00bf8f;
+            --light-green: #7ef0b9;
+            --neon-green: #39ff14;
         }
         
         * {
@@ -29,11 +32,28 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--darker);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 100%);
             color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
-            padding-bottom: 80px; /* Space for floating audio */
+            padding-bottom: 80px;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.2) 0%, transparent 20%),
+                radial-gradient(circle at 90% 60%, rgba(255, 0, 255, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 50% 80%, rgba(57, 255, 20, 0.1) 0%, transparent 20%);
+            z-index: -1;
+            animation: backgroundShift 15s ease-in-out infinite alternate;
         }
         
         .container {
@@ -48,72 +68,118 @@
             top: 20px;
             right: 20px;
             z-index: 1001;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            color: white;
+            background: linear-gradient(45deg, var(--light-green), var(--neon-green));
+            color: #0a4020;
             border: none;
             border-radius: 50px;
-            padding: 10px 20px;
-            font-weight: 600;
+            padding: 12px 24px;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+            box-shadow: 0 5px 15px rgba(126, 240, 185, 0.5);
             transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
         }
         
         .category-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.7);
+            box-shadow: 0 8px 20px rgba(126, 240, 185, 0.7);
+            background: linear-gradient(45deg, var(--neon-green), var(--light-green));
         }
         
         .category-menu {
             position: fixed;
             top: 70px;
             right: 20px;
-            background: var(--dark);
-            border-radius: 10px;
-            padding: 10px 0;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            background: rgba(18, 18, 18, 0.95);
+            border-radius: 15px;
+            padding: 15px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             z-index: 1001;
             display: none;
             flex-direction: column;
-            width: 200px;
-            border: 1px solid var(--gray);
+            width: 220px;
+            border: 1px solid var(--light-green);
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
         
         .category-menu.active {
             display: flex;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .category-item {
-            padding: 12px 20px;
+            padding: 14px 20px;
             color: var(--light);
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-left: 3px solid transparent;
+        }
+        
+        .category-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(126, 240, 185, 0.2), transparent);
+            transition: all 0.5s ease;
         }
         
         .category-item:hover {
-            background: rgba(138, 43, 226, 0.2);
+            background: rgba(126, 240, 185, 0.1);
             padding-left: 25px;
+            border-left-color: var(--light-green);
+        }
+        
+        .category-item:hover::before {
+            left: 100%;
         }
         
         .category-item i {
-            color: var(--primary);
+            color: var(--light-green);
+            font-size: 1.1rem;
+            width: 25px;
+            text-align: center;
+        }
+        
+        .category-item span {
+            flex: 1;
+        }
+        
+        .category-item .badge {
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
         }
         
         /* Header Styles */
         .header {
-            background: linear-gradient(135deg, var(--dark), var(--darker));
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.8), rgba(10, 10, 10, 0.9));
             padding: 3rem 1rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(126, 240, 185, 0.2);
         }
         
         .header::before {
@@ -140,31 +206,34 @@
             max-height: 300px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            border: 2px solid var(--primary);
+            border: 2px solid var(--light-green);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             animation: float 6s ease-in-out infinite;
         }
         
         .logo:hover {
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.3);
+            box-shadow: 0 15px 35px rgba(126, 240, 185, 0.3);
         }
         
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
+            background: linear-gradient(45deg, var(--light-green), var(--neon-green));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             font-weight: 700;
             animation: glow 2s ease-in-out infinite alternate;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
         }
         
         .header p {
             font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 2rem;
+            font-family: 'Exo 2', sans-serif;
         }
         
         /* Floating Audio Player */
@@ -176,19 +245,19 @@
             background: rgba(18, 18, 18, 0.9);
             border-radius: 50px;
             padding: 10px 20px;
-            box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5);
+            box-shadow: 0 5px 25px rgba(126, 240, 185, 0.5);
             display: flex;
             align-items: center;
             z-index: 1000;
             backdrop-filter: blur(10px);
-            border: 1px solid var(--primary);
+            border: 1px solid var(--light-green);
             animation: pulse 2s infinite;
             transition: all 0.3s ease;
         }
         
         .floating-audio:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.7);
+            box-shadow: 0 8px 30px rgba(126, 240, 185, 0.7);
         }
         
         .floating-audio .audio-text {
@@ -196,6 +265,7 @@
             font-size: 0.9rem;
             color: var(--light);
             white-space: nowrap;
+            font-family: 'Exo 2', sans-serif;
         }
         
         .floating-audio audio {
@@ -215,22 +285,23 @@
         }
         
         .floating-audio .close-btn:hover {
-            color: var(--accent);
+            color: var(--light-green);
         }
         
         /* Section Styles */
         .section {
-            background: var(--dark);
+            background: rgba(18, 18, 18, 0.8);
             border-radius: 15px;
             padding: 2.5rem;
             margin: 2rem 0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            border: 1px solid var(--gray);
+            border: 1px solid rgba(126, 240, 185, 0.2);
             position: relative;
             overflow: hidden;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.6s ease;
+            backdrop-filter: blur(5px);
         }
         
         .section.visible {
@@ -245,7 +316,7 @@
             left: 0;
             width: 5px;
             height: 100%;
-            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            background: linear-gradient(to bottom, var(--light-green), var(--neon-green));
         }
         
         .section h2 {
@@ -254,16 +325,20 @@
             color: var(--light);
             display: flex;
             align-items: center;
+            font-family: 'Orbitron', sans-serif;
         }
         
         .section h2 i {
             margin-right: 10px;
-            color: var(--primary);
+            color: var(--light-green);
         }
         
         .section p {
             margin-bottom: 1.5rem;
             opacity: 0.9;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.7;
         }
         
         /* Button Styles */
@@ -282,6 +357,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            font-family: 'Exo 2', sans-serif;
         }
         
         .btn::before {
@@ -338,9 +414,10 @@
         }
         
         .btn-support {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            color: white;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+            background: linear-gradient(45deg, var(--light-green), var(--neon-green));
+            color: #0a4020;
+            box-shadow: 0 5px 15px rgba(126, 240, 185, 0.3);
+            font-weight: 700;
         }
         
         /* Button Container */
@@ -360,23 +437,26 @@
         .feature-table {
             width: 100%;
             border-collapse: collapse;
-            background: var(--dark);
+            background: rgba(40, 40, 40, 0.5);
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             margin: 1.5rem 0;
+            backdrop-filter: blur(5px);
         }
         
         .feature-table th, .feature-table td {
             padding: 1.2rem 1.5rem;
             text-align: left;
-            border-bottom: 1px solid var(--gray);
+            border-bottom: 1px solid rgba(126, 240, 185, 0.2);
+            font-family: 'Exo 2', sans-serif;
         }
         
         .feature-table th {
-            background: var(--primary);
-            color: white;
-            font-weight: 500;
+            background: rgba(126, 240, 185, 0.2);
+            color: var(--light-green);
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
         }
         
         .feature-table tr:last-child td {
@@ -388,13 +468,13 @@
         }
         
         .feature-table tr:hover {
-            background: rgba(138, 43, 226, 0.1);
+            background: rgba(126, 240, 185, 0.1);
             transform: translateX(5px);
         }
         
         /* Workflow Code */
         .workflow-code {
-            background: var(--gray);
+            background: rgba(40, 40, 40, 0.5);
             color: var(--light);
             padding: 1.5rem;
             border-radius: 10px;
@@ -402,30 +482,36 @@
             overflow-x: auto;
             font-family: 'Courier New', monospace;
             position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(126, 240, 185, 0.2);
         }
         
         .workflow-code pre {
             margin: 0;
             white-space: pre-wrap;
             word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
         
         .copy-btn {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(126, 240, 185, 0.2);
             border: none;
-            color: white;
+            color: var(--light-green);
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.8rem;
             transition: all 0.2s ease;
+            font-family: 'Exo 2', sans-serif;
         }
         
         .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(126, 240, 185, 0.3);
             transform: scale(1.05);
         }
         
@@ -434,12 +520,14 @@
             text-align: center;
             padding: 2rem;
             margin-top: 3rem;
-            background: var(--dark);
-            border-top: 1px solid var(--gray);
+            background: rgba(18, 18, 18, 0.8);
+            border-top: 1px solid rgba(126, 240, 185, 0.2);
+            backdrop-filter: blur(5px);
         }
         
         .footer p {
             opacity: 0.7;
+            font-family: 'Exo 2', sans-serif;
         }
         
         /* Responsive Styles */
@@ -484,14 +572,14 @@
             .category-btn {
                 top: 10px;
                 right: 10px;
-                padding: 8px 16px;
-                font-size: 0.9rem;
+                padding: 10px 18px;
+                font-size: 0.8rem;
             }
             
             .category-menu {
                 top: 50px;
                 right: 10px;
-                width: 180px;
+                width: 200px;
             }
         }
         
@@ -503,14 +591,14 @@
         }
         
         @keyframes glow {
-            from { text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
-            to { text-shadow: 0 0 15px var(--primary), 0 0 20px var(--primary), 0 0 25px var(--accent); }
+            from { text-shadow: 0 0 5px rgba(126, 240, 185, 0.5), 0 0 10px rgba(126, 240, 185, 0.5); }
+            to { text-shadow: 0 0 15px rgba(126, 240, 185, 0.7), 0 0 20px rgba(126, 240, 185, 0.7), 0 0 25px rgba(57, 255, 20, 0.5); }
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5); }
-            50% { box-shadow: 0 5px 35px rgba(138, 43, 226, 0.8); }
-            100% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5); }
+            0% { box-shadow: 0 5px 25px rgba(126, 240, 185, 0.5); }
+            50% { box-shadow: 0 5px 35px rgba(126, 240, 185, 0.8); }
+            100% { box-shadow: 0 5px 25px rgba(126, 240, 185, 0.5); }
         }
         
         @keyframes slideIn {
@@ -519,8 +607,13 @@
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        @keyframes backgroundShift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
         }
         
         /* Particle background effect */
@@ -530,14 +623,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -2;
             overflow: hidden;
         }
         
         .particle {
             position: absolute;
             border-radius: 50%;
-            background: rgba(138, 43, 226, 0.3);
+            background: rgba(126, 240, 185, 0.3);
             animation: float-particle 15s infinite linear;
         }
         
@@ -560,8 +653,28 @@
         
         /* Neon glow effect */
         .neon-text {
-            text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary), 0 0 20px var(--accent), 0 0 35px var(--accent), 0 0 40px var(--accent);
+            text-shadow: 0 0 5px var(--light-green), 0 0 10px var(--light-green), 0 0 15px var(--light-green), 0 0 20px var(--neon-green), 0 0 35px var(--neon-green), 0 0 40px var(--neon-green);
             color: white;
+        }
+        
+        /* Message styles */
+        .message {
+            background: rgba(126, 240, 185, 0.1);
+            border-left: 3px solid var(--light-green);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .message-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            color: var(--light-green);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -576,19 +689,29 @@
     
     <div class="category-menu" id="categoryMenu">
         <a href="#follow-channel" class="category-item">
-            <i class="fas fa-bullhorn"></i> Follow Channel
+            <i class="fas fa-bullhorn"></i>
+            <span>Follow Channel</span>
+            <div class="badge">New</div>
         </a>
         <a href="#get-session" class="category-item">
-            <i class="fas fa-qrcode"></i> Get Session
+            <i class="fas fa-qrcode"></i>
+            <span>Get Session</span>
         </a>
         <a href="#deploy-bot" class="category-item">
-            <i class="fas fa-rocket"></i> Deploy Bot
+            <i class="fas fa-rocket"></i>
+            <span>Deploy Bot</span>
         </a>
         <a href="#features" class="category-item">
-            <i class="fas fa-star"></i> Features
+            <i class="fas fa-star"></i>
+            <span>Features</span>
         </a>
         <a href="#auto-update" class="category-item">
-            <i class="fas fa-sync-alt"></i> Auto Update
+            <i class="fas fa-sync-alt"></i>
+            <span>Auto Update</span>
+        </a>
+        <a href="#support" class="category-item">
+            <i class="fas fa-headset"></i>
+            <span>Support</span>
         </a>
     </div>
     
@@ -600,6 +723,11 @@
             
             <h1 class="neon-text">CASEYRHODES XMD AUDIO</h1>
             <p>Advanced WhatsApp Bot with Powerful Features</p>
+            
+            <div class="message">
+                <div class="message-title">Welcome to CASEYRHODES XMD</div>
+                <p>Experience the next generation WhatsApp bot with advanced features, seamless integration, and powerful capabilities.</p>
+            </div>
         </div>
     </div>
 
@@ -618,7 +746,13 @@
     <div class="container">
         <div class="section" id="follow-channel">
             <h2><i class="fas fa-bullhorn"></i> Follow Our Official Channel</h2>
-            <p>Stay updated with the latest features and announcements from CASEYRHODES XMD</p>
+            <p>Stay updated with the latest features and announcements from CASEYRHODES XMD. Get notified about new updates, features, and important information.</p>
+            
+            <div class="message">
+                <div class="message-title">Why Join Our Channel?</div>
+                <p>By joining our official channel, you'll be the first to know about new features, updates, and exclusive content. Don't miss out on important announcements!</p>
+            </div>
+            
             <div class="btn-container">
                 <a href="https://whatsapp.com/channel/0029VakUEfb4o7qVdkwPk83E" class="btn btn-channel">
                     <i class="fab fa-whatsapp"></i> Join Channel
@@ -628,7 +762,13 @@
 
         <div class="section" id="get-session">
             <h2><i class="fas fa-qrcode"></i> Get Your Session ID</h2>
-            <p>Generate your WhatsApp session ID to deploy the bot and start using all the amazing features</p>
+            <p>Generate your WhatsApp session ID to deploy the bot and start using all the amazing features. The process is simple and takes only a few minutes.</p>
+            
+            <div class="message">
+                <div class="message-title">Secure & Private</div>
+                <p>Your session data is encrypted and never stored on our servers. The pairing process ensures maximum security for your WhatsApp account.</p>
+            </div>
+            
             <div class="btn-container">
                 <a href="https://caseypaircode-e6b138f710a8.herokuapp.com/" class="btn btn-session">
                     <i class="fas fa-qrcode"></i> Get Pairing Code
@@ -638,7 +778,13 @@
 
         <div class="section" id="deploy-bot">
             <h2><i class="fas fa-rocket"></i> Deploy Your Bot</h2>
-            <p>Choose your preferred deployment method to get started with CASEYRHODES XMD</p>
+            <p>Choose your preferred deployment method to get started with CASEYRHODES XMD. We support multiple platforms for your convenience.</p>
+            
+            <div class="message">
+                <div class="message-title">Easy Deployment</div>
+                <p>Whether you prefer Heroku for simplicity or Pterodactyl for more control, we've got you covered with easy deployment options.</p>
+            </div>
+            
             <div class="btn-container">
                 <a href="https://dashboard.heroku.com/new-app?template=https://github.com/caseyweb/CASEYRHODES-XMD" class="btn btn-heroku">
                     <i class="fab fa-heroku"></i> Deploy on Heroku
@@ -651,6 +797,13 @@
 
         <div class="features section" id="features">
             <h2><i class="fas fa-star"></i> Features</h2>
+            <p>Discover the powerful features that make CASEYRHODES XMD the best WhatsApp bot solution available.</p>
+            
+            <div class="message">
+                <div class="message-title">Feature Rich</div>
+                <p>Our bot comes packed with everything you need for media processing, utilities, entertainment, and productivity.</p>
+            </div>
+            
             <table class="feature-table">
                 <thead>
                     <tr>
@@ -681,7 +834,12 @@
 
         <div class="section" id="auto-update">
             <h2><i class="fas fa-sync-alt"></i> Auto-Update Feature</h2>
-            <p>Your bot updates automatically with the latest features and security improvements</p>
+            <p>Your bot updates automatically with the latest features and security improvements. No manual intervention required.</p>
+            
+            <div class="message">
+                <div class="message-title">Always Up-to-Date</div>
+                <p>Our auto-update system ensures your bot always has the latest features and security patches without any effort on your part.</p>
+            </div>
             
             <div class="workflow-code">
                 <button class="copy-btn" onclick="copyCode()">
@@ -716,6 +874,22 @@ jobs:
             <div class="btn-container">
                 <a href="https://wa.me/+254112192119?text=𝐂𝐀𝐒𝐄𝐘𝐑𝐇𝐎𝐃𝐄𝐒+𝐗𝐌𝐃+𝐕𝟐" class="btn btn-support">
                     <i class="fab fa-whatsapp"></i> Report Issues
+                </a>
+            </div>
+        </div>
+        
+        <div class="section" id="support">
+            <h2><i class="fas fa-headset"></i> Support</h2>
+            <p>Need help with setting up or using CASEYRHODES XMD? Our support team is here to assist you.</p>
+            
+            <div class="message">
+                <div class="message-title">24/7 Assistance</div>
+                <p>Our dedicated support team is available around the clock to help you with any issues or questions you may have.</p>
+            </div>
+            
+            <div class="btn-container">
+                <a href="https://wa.me/+254112192119" class="btn btn-support">
+                    <i class="fab fa-whatsapp"></i> Contact Support
                 </a>
             </div>
         </div>
@@ -800,12 +974,12 @@ jobs:
                 showAudioBtn.style.width = '50px';
                 showAudioBtn.style.height = '50px';
                 showAudioBtn.style.borderRadius = '50%';
-                showAudioBtn.style.background = 'var(--primary)';
-                showAudioBtn.style.color = 'white';
+                showAudioBtn.style.background = 'var(--light-green)';
+                showAudioBtn.style.color = '#0a4020';
                 showAudioBtn.style.border = 'none';
                 showAudioBtn.style.cursor = 'pointer';
                 showAudioBtn.style.zIndex = '1000';
-                showAudioBtn.style.boxShadow = '0 5px 15px rgba(138, 43, 226, 0.5)';
+                showAudioBtn.style.boxShadow = '0 5px 15px rgba(126, 240, 185, 0.5)';
                 showAudioBtn.id = 'show-audio-btn';
                 
                 showAudioBtn.addEventListener('click', function() {
@@ -823,7 +997,8 @@ jobs:
         const categoryBtn = document.getElementById('categoryBtn');
         const categoryMenu = document.getElementById('categoryMenu');
         
-        categoryBtn.addEventListener('click', function() {
+        categoryBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
             categoryMenu.classList.toggle('active');
         });
         
@@ -849,6 +1024,12 @@ jobs:
                     
                     // Close menu after selection
                     categoryMenu.classList.remove('active');
+                    
+                    // Add active effect to the section
+                    targetSection.classList.add('highlight');
+                    setTimeout(() => {
+                        targetSection.classList.remove('highlight');
+                    }, 2000);
                 }
             });
         });
