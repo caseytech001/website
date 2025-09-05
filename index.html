@@ -102,28 +102,57 @@
             margin-bottom: 2rem;
         }
         
-        /* Floating Audio Player */
+        /* Floating Audio Player - Updated with floating animation */
         .floating-audio {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 300px;
+            width: 60px;
+            height: 60px;
             background: rgba(18, 18, 18, 0.9);
-            border-radius: 50px;
-            padding: 10px 20px;
-            box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5);
+            border-radius: 50%;
             display: flex;
             align-items: center;
+            justify-content: center;
             z-index: 1000;
             backdrop-filter: blur(10px);
-            border: 1px solid var(--primary);
-            animation: pulse 2s infinite;
-            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5), 0 0 15px rgba(255, 0, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            animation: floating 20s infinite ease-in-out, pulse 2s infinite;
+        }
+        
+        .floating-audio.expanded {
+            width: 300px;
+            height: auto;
+            border-radius: 50px;
+            padding: 10px 20px;
         }
         
         .floating-audio:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.7);
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.7), 0 0 20px rgba(255, 0, 255, 0.7);
+        }
+        
+        .floating-audio .audio-icon {
+            font-size: 1.5rem;
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-audio .audio-content {
+            display: none;
+            width: 100%;
+        }
+        
+        .floating-audio.expanded .audio-icon {
+            display: none;
+        }
+        
+        .floating-audio.expanded .audio-content {
+            display: flex;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
         }
         
         .floating-audio .audio-text {
@@ -409,7 +438,7 @@
                 padding: 1rem;
             }
             
-            .floating-audio {
+            .floating-audio.expanded {
                 width: calc(100% - 40px);
                 left: 20px;
                 right: 20px;
@@ -430,9 +459,22 @@
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5); }
-            50% { box-shadow: 0 5px 35px rgba(138, 43, 226, 0.8); }
-            100% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5); }
+            0% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5), 0 0 15px rgba(255, 0, 255, 0.5); }
+            50% { box-shadow: 0 5px 35px rgba(138, 43, 226, 0.8), 0 0 25px rgba(255, 0, 255, 0.8); }
+            100% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5), 0 0 15px rgba(255, 0, 255, 0.5); }
+        }
+        
+        @keyframes floating {
+            0% { top: 10%; left: 5%; }
+            25% { top: 15%; left: 80%; }
+            50% { top: 80%; left: 70%; }
+            75% { top: 70%; left: 10%; }
+            100% { top: 10%; left: 5%; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         @keyframes slideIn {
@@ -497,16 +539,21 @@
         </div>
     </div>
 
-    <!-- Floating Audio Player -->
-    <div class="floating-audio">
-        <span class="audio-text">Now Playing:</span>
-        <audio controls autoplay loop>
-            <source src="https://files.catbox.moe/92gu1n.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <button class="close-btn" id="minimize-audio">
-            <i class="fas fa-minus"></i>
-        </button>
+    <!-- Floating Audio Player - Updated with floating animation -->
+    <div class="floating-audio" id="floating-audio">
+        <div class="audio-icon">
+            <i class="fas fa-music"></i>
+        </div>
+        <div class="audio-content">
+            <span class="audio-text">Now Playing:</span>
+            <audio controls autoplay loop id="audio-player">
+                <source src="https://files.catbox.moe/92gu1n.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <button class="close-btn" id="minimize-audio">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
     </div>
 
     <div class="container">
@@ -676,47 +723,41 @@ jobs:
             });
         }
         
-        // Toggle floating audio player
-        document.getElementById('minimize-audio').addEventListener('click', function() {
-            const audioPlayer = document.querySelector('.floating-audio');
-            audioPlayer.style.transform = 'translateY(100px)';
-            audioPlayer.style.opacity = '0';
-            
-            setTimeout(() => {
-                audioPlayer.style.display = 'none';
-                
-                // Create a button to show audio again
-                const showAudioBtn = document.createElement('button');
-                showAudioBtn.innerHTML = '<i class="fas fa-music"></i>';
-                showAudioBtn.style.position = 'fixed';
-                showAudioBtn.style.bottom = '20px';
-                showAudioBtn.style.right = '20px';
-                showAudioBtn.style.width = '50px';
-                showAudioBtn.style.height = '50px';
-                showAudioBtn.style.borderRadius = '50%';
-                showAudioBtn.style.background = 'var(--primary)';
-                showAudioBtn.style.color = 'white';
-                showAudioBtn.style.border = 'none';
-                showAudioBtn.style.cursor = 'pointer';
-                showAudioBtn.style.zIndex = '1000';
-                showAudioBtn.style.boxShadow = '0 5px 15px rgba(138, 43, 226, 0.5)';
-                showAudioBtn.id = 'show-audio-btn';
-                
-                showAudioBtn.addEventListener('click', function() {
-                    audioPlayer.style.display = 'flex';
-                    audioPlayer.style.transform = 'translateY(0)';
-                    audioPlayer.style.opacity = '1';
-                    this.remove();
-                });
-                
-                document.body.appendChild(showAudioBtn);
-            }, 300);
+        // Floating audio player functionality
+        const floatingAudio = document.getElementById('floating-audio');
+        const audioPlayer = document.getElementById('audio-player');
+        const minimizeBtn = document.getElementById('minimize-audio');
+        
+        // Toggle expanded state
+        floatingAudio.addEventListener('click', function(e) {
+            if (!floatingAudio.classList.contains('expanded') && !e.target.closest('.close-btn')) {
+                floatingAudio.classList.add('expanded');
+                // Stop the floating animation when expanded
+                floatingAudio.style.animation = 'pulse 2s infinite';
+            }
         });
+        
+        // Minimize the audio player
+        minimizeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            floatingAudio.classList.remove('expanded');
+            // Restart the floating animation
+            floatingAudio.style.animation = 'floating 20s infinite ease-in-out, pulse 2s infinite';
+        });
+        
+        // Randomize the starting position
+        function randomizePosition() {
+            const top = Math.random() * 80 + 10; // 10% to 90%
+            const left = Math.random() * 80 + 10; // 10% to 90%
+            floatingAudio.style.top = `${top}%`;
+            floatingAudio.style.left = `${left}%`;
+        }
         
         // Initialize on page load
         window.addEventListener('load', function() {
             createParticles();
             checkScroll();
+            randomizePosition();
             
             // Animate sections sequentially
             const sections = document.querySelectorAll('.section');
