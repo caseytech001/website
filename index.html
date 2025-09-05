@@ -19,6 +19,12 @@
             --pterodactyl: #2f3640;
             --whatsapp: #25D366;
             --session: #00bf8f;
+            --render: #5f6bff;
+            --replit: #f26207;
+            --railway: #0a0a0a;
+            --glitch: #ff7cbe;
+            --codespace: #0078d7;
+            --talkdrove: #7c3aed;
         }
         
         * {
@@ -33,7 +39,7 @@
             color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
-            padding-bottom: 60px; /* Reduced space for floating audio */
+            padding-bottom: 60px;
         }
         
         .container {
@@ -52,19 +58,19 @@
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.6);
             transition: all 0.3s ease;
         }
         
         .category-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.7);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.8);
         }
         
         .category-menu {
@@ -72,14 +78,14 @@
             top: 70px;
             right: 20px;
             background: var(--dark);
-            border-radius: 10px;
-            padding: 10px 0;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 12px 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
             z-index: 1001;
             display: none;
             flex-direction: column;
-            width: 200px;
-            border: 1px solid var(--gray);
+            width: 220px;
+            border: 1px solid var(--primary);
             overflow: hidden;
         }
         
@@ -89,13 +95,14 @@
         }
         
         .category-item {
-            padding: 12px 20px;
+            padding: 14px 20px;
             color: var(--light);
             text-decoration: none;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 500;
         }
         
         .category-item:hover {
@@ -105,6 +112,8 @@
         
         .category-item i {
             color: var(--primary);
+            width: 20px;
+            text-align: center;
         }
         
         /* Header Styles */
@@ -137,7 +146,7 @@
             max-width: 100%;
             width: auto;
             height: auto;
-            max-height: 300px;
+            max-height: 280px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             border: 2px solid var(--primary);
@@ -151,20 +160,24 @@
         }
         
         .header h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 0.5rem;
             background: linear-gradient(45deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            font-weight: 700;
+            font-weight: 800;
+            letter-spacing: 1px;
             animation: glow 2s ease-in-out infinite alternate;
         }
         
         .header p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             opacity: 0.9;
             margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         /* Floating Audio Player - Reduced size */
@@ -173,10 +186,10 @@
             bottom: 15px;
             right: 15px;
             width: 240px;
-            background: rgba(18, 18, 18, 0.9);
+            background: rgba(18, 18, 18, 0.95);
             border-radius: 30px;
             padding: 8px 15px;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.6);
             display: flex;
             align-items: center;
             z-index: 1000;
@@ -187,7 +200,7 @@
         
         .floating-audio:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.7);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.8);
         }
         
         .floating-audio .audio-text {
@@ -195,6 +208,7 @@
             font-size: 0.8rem;
             color: var(--light);
             white-space: nowrap;
+            font-weight: 500;
         }
         
         .floating-audio audio {
@@ -218,13 +232,13 @@
             color: var(--accent);
         }
         
-        /* Section Styles - Reduced animations */
+        /* Section Styles */
         .section {
             background: var(--dark);
             border-radius: 15px;
-            padding: 2rem;
-            margin: 1.5rem 0;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            padding: 2.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
             border: 1px solid var(--gray);
             position: relative;
             overflow: hidden;
@@ -243,21 +257,24 @@
         }
         
         .section h2 {
-            font-size: 1.6rem;
-            margin-bottom: 1.2rem;
+            font-size: 1.9rem;
+            margin-bottom: 1.5rem;
             color: var(--light);
             display: flex;
             align-items: center;
         }
         
         .section h2 i {
-            margin-right: 10px;
+            margin-right: 12px;
             color: var(--primary);
+            font-size: 1.5rem;
         }
         
         .section p {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             opacity: 0.9;
+            font-size: 1.1rem;
+            line-height: 1.7;
         }
         
         /* Button Styles */
@@ -265,11 +282,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.9rem 1.8rem;
+            padding: 1.1rem 2.2rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
@@ -285,8 +302,8 @@
             left: 0;
             width: 0%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.15);
+            transition: all 0.4s ease;
             z-index: -1;
         }
         
@@ -295,8 +312,8 @@
         }
         
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.25);
         }
         
         .btn:active {
@@ -304,94 +321,155 @@
         }
         
         .btn i {
-            margin-right: 8px;
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
         
         .btn-heroku {
             background: var(--heroku);
             color: white;
-            box-shadow: 0 5px 15px rgba(67, 0, 152, 0.3);
+            box-shadow: 0 7px 20px rgba(67, 0, 152, 0.4);
         }
         
         .btn-pterodactyl {
             background: var(--pterodactyl);
             color: white;
-            box-shadow: 0 5px 15px rgba(47, 54, 64, 0.3);
+            box-shadow: 0 7px 20px rgba(47, 54, 64, 0.4);
         }
         
         .btn-session {
             background: var(--session);
             color: white;
-            box-shadow: 0 5px 15px rgba(0, 191, 143, 0.3);
+            box-shadow: 0 7px 20px rgba(0, 191, 143, 0.4);
         }
         
         .btn-channel {
             background: var(--whatsapp);
             color: white;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 7px 20px rgba(37, 211, 102, 0.4);
         }
         
         .btn-support {
             background: linear-gradient(45deg, var(--primary), var(--accent));
             color: white;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+            box-shadow: 0 7px 20px rgba(138, 43, 226, 0.4);
         }
         
         /* Button Container */
         .btn-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 1.2rem;
             justify-content: center;
-            margin: 1.2rem 0;
+            margin: 1.8rem 0;
         }
         
         /* Deployment Buttons */
         .deployment-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
         }
         
         .deploy-btn {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 1rem;
+            justify-content: flex-start;
+            padding: 1.2rem 1.5rem;
             background: var(--gray);
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 12px;
             transition: all 0.3s ease;
             font-weight: 500;
-            text-align: center;
-            min-height: 60px;
+            text-align: left;
+            min-height: 70px;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .deploy-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: rgba(138, 43, 226, 0.1);
+            transition: all 0.4s ease;
+            z-index: 0;
+        }
+        
+        .deploy-btn:hover::before {
+            width: 100%;
         }
         
         .deploy-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
-            background: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .deploy-btn i {
+            margin-right: 12px;
+            font-size: 1.4rem;
+            min-width: 30px;
+            z-index: 1;
+        }
+        
+        .deploy-btn span {
+            z-index: 1;
+        }
+        
+        /* Platform-specific colors */
+        .deploy-btn.heroku {
+            background: var(--heroku);
+        }
+        
+        .deploy-btn.render {
+            background: var(--render);
+        }
+        
+        .deploy-btn.talkdrove {
+            background: var(--talkdrove);
+        }
+        
+        .deploy-btn.replit {
+            background: var(--replit);
+        }
+        
+        .deploy-btn.codespace {
+            background: var(--codespace);
+        }
+        
+        .deploy-btn.glitch {
+            background: var(--glitch);
+        }
+        
+        .deploy-btn.railway {
+            background: var(--railway);
+            border: 1px solid #333;
         }
         
         /* Feature Table */
         .features {
-            margin: 2.5rem 0;
+            margin: 3rem 0;
         }
         
         .feature-table {
             width: 100%;
             border-collapse: collapse;
             background: var(--dark);
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin: 1.2rem 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            margin: 1.8rem 0;
         }
         
         .feature-table th, .feature-table td {
-            padding: 1rem 1.2rem;
+            padding: 1.3rem 1.5rem;
             text-align: left;
             border-bottom: 1px solid var(--gray);
         }
@@ -399,7 +477,8 @@
         .feature-table th {
             background: var(--primary);
             color: white;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1.1rem;
         }
         
         .feature-table tr:last-child td {
@@ -407,7 +486,7 @@
         }
         
         .feature-table tr {
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
         
         .feature-table tr:hover {
@@ -418,32 +497,37 @@
         .workflow-code {
             background: var(--gray);
             color: var(--light);
-            padding: 1.2rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
             overflow-x: auto;
             font-family: 'Courier New', monospace;
             position: relative;
+            border: 1px solid rgba(138, 43, 226, 0.2);
         }
         
         .workflow-code pre {
             margin: 0;
             white-space: pre-wrap;
             word-wrap: break-word;
+            line-height: 1.5;
         }
         
         .copy-btn {
             position: absolute;
-            top: 8px;
-            right: 8px;
+            top: 10px;
+            right: 10px;
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: white;
-            padding: 4px 8px;
-            border-radius: 5px;
+            padding: 6px 12px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .copy-btn:hover {
@@ -453,15 +537,15 @@
         /* Footer - Reduced size */
         .footer {
             text-align: center;
-            padding: 1.5rem;
-            margin-top: 2rem;
+            padding: 1.8rem;
+            margin-top: 3rem;
             background: var(--dark);
             border-top: 1px solid var(--gray);
         }
         
         .footer p {
             opacity: 0.7;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         
         /* Responsive Styles */
@@ -471,16 +555,16 @@
             }
             
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .section {
-                padding: 1.2rem;
+                padding: 1.8rem;
             }
             
             .btn {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
+                padding: 1rem 1.8rem;
+                font-size: 1rem;
             }
             
             .btn-container {
@@ -493,11 +577,11 @@
             }
             
             .feature-table {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
             }
             
             .feature-table th, .feature-table td {
-                padding: 0.8rem;
+                padding: 1rem;
             }
             
             .floating-audio {
@@ -510,32 +594,32 @@
             .category-btn {
                 top: 10px;
                 right: 10px;
-                padding: 8px 16px;
-                font-size: 0.9rem;
+                padding: 10px 18px;
+                font-size: 0.95rem;
             }
             
             .category-menu {
-                top: 50px;
+                top: 55px;
                 right: 10px;
-                width: 180px;
+                width: 200px;
             }
         }
         
-        /* Animations - Reduced */
+        /* Animations */
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
         
         @keyframes glow {
-            from { text-shadow: 0 0 5px var(--primary); }
-            to { text-shadow: 0 0 10px var(--primary), 0 0 15px var(--accent); }
+            from { text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
+            to { text-shadow: 0 0 15px var(--primary), 0 0 20px var(--primary), 0 0 25px var(--accent); }
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* Particle background effect */
@@ -552,7 +636,7 @@
         .particle {
             position: absolute;
             border-radius: 50%;
-            background: rgba(138, 43, 226, 0.2);
+            background: rgba(138, 43, 226, 0.3);
             animation: float-particle 20s infinite linear;
         }
         
@@ -562,10 +646,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.5;
+                opacity: 0.7;
             }
             90% {
-                opacity: 0.5;
+                opacity: 0.7;
             }
             100% {
                 transform: translateY(-100vh) translateX(100vw);
@@ -575,8 +659,20 @@
         
         /* Neon glow effect */
         .neon-text {
-            text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+            text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary), 0 0 20px var(--accent);
             color: white;
+        }
+        
+        /* Section visibility animation */
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -590,11 +686,11 @@
     </button>
     
     <div class="category-menu" id="categoryMenu">
-        <a href="#follow-channel" class="category-item">
-            <i class="fas fa-bullhorn"></i> Follow Channel
-        </a>
         <a href="#get-session" class="category-item">
             <i class="fas fa-qrcode"></i> Get Session
+        </a>
+        <a href="#follow-channel" class="category-item">
+            <i class="fas fa-bullhorn"></i> Follow Channel
         </a>
         <a href="#deploy-bot" class="category-item">
             <i class="fas fa-rocket"></i> Deploy Bot
@@ -614,7 +710,7 @@
             </div>
             
             <h1 class="neon-text">CASEYRHODES XMD AUDIO</h1>
-            <p>Advanced WhatsApp Bot with Powerful Features</p>
+            <p>Advanced WhatsApp Bot with Powerful Features and Seamless Deployment Options</p>
         </div>
     </div>
 
@@ -631,19 +727,10 @@
     </div>
 
     <div class="container">
-        <div class="section" id="follow-channel">
-            <h2><i class="fas fa-bullhorn"></i> Follow Our Official Channel</h2>
-            <p>Stay updated with the latest features and announcements from CASEYRHODES XMD</p>
-            <div class="btn-container">
-                <a href="https://whatsapp.com/channel/0029VakUEfb4o7qVdkwPk83E" class="btn btn-channel">
-                    <i class="fab fa-whatsapp"></i> Join Channel
-                </a>
-            </div>
-        </div>
-
+        <!-- Get Session section comes first -->
         <div class="section" id="get-session">
             <h2><i class="fas fa-qrcode"></i> Get Your Session ID</h2>
-            <p>Generate your WhatsApp session ID to deploy the bot and start using all the amazing features</p>
+            <p>Generate your WhatsApp session ID to deploy the bot and start using all the amazing features. This is the first step to get your bot running.</p>
             <div class="btn-container">
                 <a href="https://six391-wkgc.onrender.com/" class="btn btn-session">
                     <i class="fas fa-qrcode"></i> Get Pairing Code
@@ -651,18 +738,42 @@
             </div>
         </div>
 
+        <div class="section" id="follow-channel">
+            <h2><i class="fas fa-bullhorn"></i> Follow Our Official Channel</h2>
+            <p>Stay updated with the latest features, announcements, and updates from CASEYRHODES XMD. Join our community today!</p>
+            <div class="btn-container">
+                <a href="https://whatsapp.com/channel/0029VakUEfb4o7qVdkwPk83E" class="btn btn-channel">
+                    <i class="fab fa-whatsapp"></i> Join Channel
+                </a>
+            </div>
+        </div>
+
         <div class="section" id="deploy-bot">
             <h2><i class="fas fa-rocket"></i> Deploy Your Bot</h2>
-            <p>Choose your preferred deployment method to get started with CASEYRHODES XMD</p>
+            <p>Choose your preferred deployment method to get started with CASEYRHODES XMD. All platforms offer easy one-click deployment.</p>
             
             <div class="deployment-buttons">
-                <a href="https://dashboard.heroku.com/new?template=https://github.com/caseyweb/CASEYRHODES-XMD/tree/main" class="deploy-btn" target="_blank">Heroku</a>
-                <a href="https://dashboard.render.com/web/new" class="deploy-btn" target="_blank">Render</a>
-                <a href="https://host.talkdrove.com/dashboard/select-bot/prepare-deployment?botId=39" class="deploy-btn" target="_blank">Talkdrove</a>
-                <a href="https://repl.it/github/caseyweb/CASEYRHODES-XMD" class="deploy-btn" target="_blank">Replit</a>
-                <a href="https://github.com/codespaces/new" class="deploy-btn" target="_blank">Codespace</a>
-                <a href="https://glitch.com/signup" class="deploy-btn" target="_blank">Glitch</a>
-                <a href="https://railway.app/new" class="deploy-btn" target="_blank">Railway</a>
+                <a href="https://dashboard.heroku.com/new?template=https://github.com/caseyweb/CASEYRHODES-XMD/tree/main" class="deploy-btn heroku" target="_blank">
+                    <i class="fab fa-heroku"></i> <span>Heroku</span>
+                </a>
+                <a href="https://dashboard.render.com/web/new" class="deploy-btn render" target="_blank">
+                    <i class="fas fa-server"></i> <span>Render</span>
+                </a>
+                <a href="https://host.talkdrove.com/dashboard/select-bot/prepare-deployment?botId=39" class="deploy-btn talkdrove" target="_blank">
+                    <i class="fas fa-cloud"></i> <span>Talkdrove</span>
+                </a>
+                <a href="https://repl.it/github/caseyweb/CASEYRHODES-XMD" class="deploy-btn replit" target="_blank">
+                    <i class="fas fa-code"></i> <span>Replit</span>
+                </a>
+                <a href="https://github.com/codespaces/new" class="deploy-btn codespace" target="_blank">
+                    <i class="fas fa-laptop-code"></i> <span>Codespace</span>
+                </a>
+                <a href="https://glitch.com/signup" class="deploy-btn glitch" target="_blank">
+                    <i class="fas fa-project-diagram"></i> <span>Glitch</span>
+                </a>
+                <a href="https://railway.app/new" class="deploy-btn railway" target="_blank">
+                    <i class="fas fa-train"></i> <span>Railway</span>
+                </a>
             </div>
             
             <div class="btn-container">
@@ -704,7 +815,7 @@
 
         <div class="section" id="auto-update">
             <h2><i class="fas fa-sync-alt"></i> Auto-Update Feature</h2>
-            <p>Your bot updates automatically with the latest features and security improvements</p>
+            <p>Your bot updates automatically with the latest features and security improvements. No manual intervention required.</p>
             
             <div class="workflow-code">
                 <button class="copy-btn" onclick="copyCode()">
@@ -754,14 +865,14 @@ jobs:
         // Create particle background
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 20; // Reduced particle count
+            const particleCount = 30;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
                 // Random properties
-                const size = Math.random() * 8 + 2;
+                const size = Math.random() * 10 + 2;
                 const posX = Math.random() * 100;
                 const posY = Math.random() * 100;
                 const delay = Math.random() * 15;
@@ -777,6 +888,20 @@ jobs:
                 
                 particlesContainer.appendChild(particle);
             }
+        }
+        
+        // Scroll animation for sections
+        function checkScroll() {
+            const sections = document.querySelectorAll('.section');
+            const triggerBottom = window.innerHeight * 0.85;
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                
+                if (sectionTop < triggerBottom) {
+                    section.classList.add('visible');
+                }
+            });
         }
         
         // Copy code functionality
@@ -806,16 +931,20 @@ jobs:
                 showAudioBtn.style.position = 'fixed';
                 showAudioBtn.style.bottom = '15px';
                 showAudioBtn.style.right = '15px';
-                showAudioBtn.style.width = '40px';
-                showAudioBtn.style.height = '40px';
+                showAudioBtn.style.width = '45px';
+                showAudioBtn.style.height = '45px';
                 showAudioBtn.style.borderRadius = '50%';
                 showAudioBtn.style.background = 'var(--primary)';
                 showAudioBtn.style.color = 'white';
                 showAudioBtn.style.border = 'none';
                 showAudioBtn.style.cursor = 'pointer';
                 showAudioBtn.style.zIndex = '1000';
-                showAudioBtn.style.boxShadow = '0 3px 10px rgba(138, 43, 226, 0.5)';
+                showAudioBtn.style.boxShadow = '0 5px 15px rgba(138, 43, 226, 0.5)';
                 showAudioBtn.id = 'show-audio-btn';
+                showAudioBtn.style.display = 'flex';
+                showAudioBtn.style.alignItems = 'center';
+                showAudioBtn.style.justifyContent = 'center';
+                showAudioBtn.style.fontSize = '1.2rem';
                 
                 showAudioBtn.addEventListener('click', function() {
                     audioPlayer.style.display = 'flex';
@@ -832,7 +961,8 @@ jobs:
         const categoryBtn = document.getElementById('categoryBtn');
         const categoryMenu = document.getElementById('categoryMenu');
         
-        categoryBtn.addEventListener('click', function() {
+        categoryBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
             categoryMenu.classList.toggle('active');
         });
         
@@ -865,7 +995,17 @@ jobs:
         // Initialize on page load
         window.addEventListener('load', function() {
             createParticles();
+            checkScroll();
+            
+            // Animate sections sequentially
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                section.style.transitionDelay = `${index * 0.2}s`;
+            });
         });
+        
+        // Check scroll on scroll event
+        window.addEventListener('scroll', checkScroll);
     </script>
 </body>
 </html>
