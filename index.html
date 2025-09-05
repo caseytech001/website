@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASEYRHODES XMD - Advanced WhatsApp Bot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --secondary: #00bf8f;
+            --accent: #ff00ff;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #f8f8f8;
+            --gray: #2a2a2a;
+            --heroku: #430098;
+            --pterodactyl: #2f3640;
+            --whatsapp: #25D366;
+            --session: #00bf8f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--dark), var(--darker));
+            padding: 3rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            z-index: 1;
+        }
+        
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .logo {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: 300px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 2px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        /* Music Player */
+        #music-player {
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        #music-player audio {
+            width: 100%;
+            outline: none;
+        }
+        
+        /* Section Styles */
+        .section {
+            background: var(--dark);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid var(--gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section h2 i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .section p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            width: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-heroku {
+            background: var(--heroku);
+            color: white;
+            box-shadow: 0 5px 15px rgba(67, 0, 152, 0.3);
+        }
+        
+        .btn-pterodactyl {
+            background: var(--pterodactyl);
+            color: white;
+            box-shadow: 0 5px 15px rgba(47, 54, 64, 0.3);
+        }
+        
+        .btn-session {
+            background: var(--session);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 191, 143, 0.3);
+        }
+        
+        .btn-channel {
+            background: var(--whatsapp);
+            color: white;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        .btn-support {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        /* Button Container */
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        
+        /* Feature Table */
+        .features {
+            margin: 3rem 0;
+        }
+        
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--dark);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 1.5rem 0;
+        }
+        
+        .feature-table th, .feature-table td {
+            padding: 1.2rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .feature-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .feature-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .feature-table tr:hover {
+            background: rgba(138, 43, 226, 0.05);
+        }
+        
+        /* Workflow Code */
+        .workflow-code {
+            background: var(--gray);
+            color: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+        
+        .workflow-code pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            background: var(--dark);
+            border-top: 1px solid var(--gray);
+        }
+        
+        .footer p {
+            opacity: 0.7;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header {
+                padding: 2rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .feature-table {
+                font-size: 0.9rem;
+            }
+            
+            .feature-table th, .feature-table td {
+                padding: 1rem;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        
+        /* Neon glow effect */
+        .neon-text {
+            text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary), 0 0 20px var(--accent), 0 0 35px var(--accent), 0 0 40px var(--accent);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="https://i.ibb.co/vCsY0jPS/lordcasey.jpg" alt="CASEYRHODES-XMD" class="logo">
+            </div>
+            
+            <h1 class="neon-text">CASEYRHODES XMD AUDIO</h1>
+            <p>Advanced WhatsApp Bot with Powerful Features</p>
+            
+            <div id="music-player">
+                <audio controls autoplay loop>
+                    <source src="https://files.catbox.moe/92gu1n.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section animate">
+            <h2><i class="fas fa-bullhorn"></i> Follow Our Official Channel</h2>
+            <p>Stay updated with the latest features and announcements from CASEYRHODES XMD</p>
+            <div class="btn-container">
+                <a href="https://whatsapp.com/channel/0029VakUEfb4o7qVdkwPk83E" class="btn btn-channel">
+                    <i class="fab fa-whatsapp"></i> Join Channel
+                </a>
+            </div>
+        </div>
+
+        <div class="section animate delay-1">
+            <h2><i class="fas fa-qrcode"></i> Get Your Session ID</h2>
+            <p>Generate your WhatsApp session ID to deploy the bot and start using all the amazing features</p>
+            <div class="btn-container">
+                <a href="https://caseypaircode-e6b138f710a8.herokuapp.com/" class="btn btn-session">
+                    <i class="fas fa-qrcode"></i> Get Pairing Code
+                </a>
+            </div>
+        </div>
+
+        <div class="section animate delay-2">
+            <h2><i class="fas fa-rocket"></i> Deploy Your Bot</h2>
+            <p>Choose your preferred deployment method to get started with CASEYRHODES XMD</p>
+            <div class="btn-container">
+                <a href="https://dashboard.heroku.com/new-app?template=https://github.com/caseyweb/CASEYRHODES-XMD" class="btn btn-heroku">
+                    <i class="fab fa-heroku"></i> Deploy on Heroku
+                </a>
+                <a href="https://github.com/caseyweb/QUEEEN-CHARITY/archive/refs/heads/main.zip" class="btn btn-pterodactyl">
+                    <i class="fas fa-server"></i> Download for Pterodactyl
+                </a>
+            </div>
+        </div>
+
+        <div class="features section animate delay-3">
+            <h2><i class="fas fa-star"></i> Features</h2>
+            <table class="feature-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Features</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Media</td>
+                        <td>Image, Video, Audio editing tools</td>
+                    </tr>
+                    <tr>
+                        <td>Utilities</td>
+                        <td>Sticker maker, QR code generator, File converter</td>
+                    </tr>
+                    <tr>
+                        <td>Fun</td>
+                        <td>Games, Meme generator, Quotes</td>
+                    </tr>
+                    <tr>
+                        <td>Productivity</td>
+                        <td>Reminders, Downloads, Group management</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-sync-alt"></i> Auto-Update Feature</h2>
+            <p>Your bot updates automatically with the latest features and security improvements</p>
+            
+            <div class="workflow-code">
+                <button class="copy-btn" onclick="copyCode()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+                <pre>
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm start</pre>        
+            </div>
+            
+            <div class="btn-container">
+                <a href="https://wa.me/+254112192119?text=𝐂𝐀𝐒𝐄𝐘𝐑𝐇𝐎𝐃𝐄𝐒+𝐗𝐌𝐃+𝐕𝟐" class="btn btn-support">
+                    <i class="fab fa-whatsapp"></i> Report Issues
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2023 CASEYRHODES XMD. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Copy code functionality
+        function copyCode() {
+            const code = document.querySelector('.workflow-code pre').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                }, 2000);
+            });
+        }
+        
+        // Add animations when scrolling
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = 0;
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
