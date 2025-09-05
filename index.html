@@ -19,16 +19,12 @@
             --pterodactyl: #2f3640;
             --whatsapp: #25D366;
             --session: #00bf8f;
-            --audio-green: #25D366; /* New green color for audio */
-            
-            /* Social media brand colors */
-            --facebook: #3b5998;
-            --twitter: #1da1f2;
-            --instagram: #e1306c;
-            --github: #333;
-            --youtube: #ff0000;
+            --instagram: #E1306C;
+            --youtube: #FF0000;
+            --github: #333333;
             --telegram: #0088cc;
-            --discord: #7289da;
+            --twitter: #1DA1F2;
+            --discord: #5865F2;
         }
         
         * {
@@ -52,6 +48,25 @@
             padding: 0 20px;
         }
         
+        /* Animated Blue-Black Background */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(125deg, #000428, #004e92, #000428);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
         /* Category Button */
         .category-btn {
             position: fixed;
@@ -62,7 +77,7 @@
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 10px 20px;
+            padding: 12px 22px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
@@ -81,14 +96,15 @@
             position: fixed;
             top: 70px;
             right: 20px;
-            background: var(--dark);
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
             border-radius: 10px;
             padding: 10px 0;
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
             z-index: 1001;
             display: none;
             flex-direction: column;
-            width: 200px;
+            width: 220px;
             border: 1px solid var(--gray);
             overflow: hidden;
         }
@@ -113,17 +129,28 @@
             padding-left: 25px;
         }
         
-        .category-item i {
-            color: var(--primary);
-        }
+        /* Social Media Icons with Brand Colors */
+        .category-item .fa-bullhorn { color: var(--whatsapp); }
+        .category-item .fa-qrcode { color: var(--session); }
+        .category-item .fa-rocket { color: var(--accent); }
+        .category-item .fa-star { color: gold; }
+        .category-item .fa-sync-alt { color: var(--secondary); }
+        .category-item .fa-instagram { color: var(--instagram); }
+        .category-item .fa-youtube { color: var(--youtube); }
+        .category-item .fa-github { color: var(--github); }
+        .category-item .fa-telegram { color: var(--telegram); }
+        .category-item .fa-twitter { color: var(--twitter); }
+        .category-item .fa-discord { color: var(--discord); }
         
         /* Header Styles */
         .header {
-            background: linear-gradient(135deg, var(--dark), var(--darker));
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.8), rgba(10, 10, 10, 0.9));
             padding: 3rem 1rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
         }
         
         .header::before {
@@ -177,7 +204,7 @@
             margin-bottom: 2rem;
         }
         
-        /* Floating Audio Player - Updated to green */
+        /* Floating Audio Player */
         .floating-audio {
             position: fixed;
             bottom: 20px;
@@ -186,19 +213,19 @@
             background: rgba(18, 18, 18, 0.9);
             border-radius: 50px;
             padding: 10px 20px;
-            box-shadow: 0 5px 25px rgba(37, 211, 102, 0.5); /* Green shadow */
+            box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5);
             display: flex;
             align-items: center;
             z-index: 1000;
             backdrop-filter: blur(10px);
-            border: 1px solid var(--audio-green); /* Green border */
+            border: 1px solid var(--primary);
             animation: pulse 2s infinite;
             transition: all 0.3s ease;
         }
         
         .floating-audio:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.7); /* Green shadow */
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.7);
         }
         
         .floating-audio .audio-text {
@@ -212,21 +239,6 @@
             width: 100%;
             outline: none;
             border-radius: 30px;
-        }
-        
-        /* Customize audio controls to be green */
-        .floating-audio audio::-webkit-media-controls-panel {
-            background-color: var(--audio-green);
-        }
-        
-        .floating-audio audio::-webkit-media-controls-play-button {
-            background-color: var(--dark);
-            border-radius: 50%;
-        }
-        
-        .floating-audio audio::-webkit-media-controls-current-time-display,
-        .floating-audio audio::-webkit-media-controls-time-remaining-display {
-            color: var(--dark);
         }
         
         .floating-audio .close-btn {
@@ -245,7 +257,7 @@
         
         /* Section Styles */
         .section {
-            background: var(--dark);
+            background: rgba(18, 18, 18, 0.8);
             border-radius: 15px;
             padding: 2.5rem;
             margin: 2rem 0;
@@ -256,12 +268,12 @@
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.6s ease;
+            backdrop-filter: blur(5px);
         }
         
         .section.visible {
             opacity: 1;
             transform: translateY(0);
-            animation: fadeIn 0.6s ease;
         }
         
         .section::before {
@@ -292,7 +304,7 @@
             opacity: 0.9;
         }
         
-        /* Button Styles */
+        /* Enhanced Button Styles */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -327,8 +339,8 @@
         }
         
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         
         .btn:active {
@@ -340,33 +352,70 @@
         }
         
         .btn-heroku {
-            background: var(--heroku);
+            background: linear-gradient(45deg, var(--heroku), #6c43c5);
             color: white;
-            box-shadow: 0 5px 15px rgba(67, 0, 152, 0.3);
+            box-shadow: 0 5px 15px rgba(67, 0, 152, 0.4);
         }
         
         .btn-pterodactyl {
-            background: var(--pterodactyl);
+            background: linear-gradient(45deg, var(--pterodactyl), #4a5568);
             color: white;
-            box-shadow: 0 5px 15px rgba(47, 54, 64, 0.3);
+            box-shadow: 0 5px 15px rgba(47, 54, 64, 0.4);
         }
         
         .btn-session {
-            background: var(--session);
+            background: linear-gradient(45deg, var(--session), #00e6b8);
             color: white;
-            box-shadow: 0 5px 15px rgba(0, 191, 143, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 191, 143, 0.4);
         }
         
         .btn-channel {
-            background: var(--whatsapp);
+            background: linear-gradient(45deg, var(--whatsapp), #2afc80);
             color: white;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
         }
         
         .btn-support {
             background: linear-gradient(45deg, var(--primary), var(--accent));
             color: white;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        /* Social Media Buttons */
+        .btn-instagram {
+            background: linear-gradient(45deg, var(--instagram), #833AB4);
+            color: white;
+            box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4);
+        }
+        
+        .btn-youtube {
+            background: linear-gradient(45deg, var(--youtube), #FF5C5C);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+        
+        .btn-github {
+            background: linear-gradient(45deg, var(--github), #555);
+            color: white;
+            box-shadow: 0 5px 15px rgba(51, 51, 51, 0.4);
+        }
+        
+        .btn-telegram {
+            background: linear-gradient(45deg, var(--telegram), #00aced);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
+        }
+        
+        .btn-twitter {
+            background: linear-gradient(45deg, var(--twitter), #1a91da);
+            color: white;
+            box-shadow: 0 5px 15px rgba(29, 161, 242, 0.4);
+        }
+        
+        .btn-discord {
+            background: linear-gradient(45deg, var(--discord), #7983f5);
+            color: white;
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
         }
         
         /* Button Container */
@@ -386,11 +435,12 @@
         .feature-table {
             width: 100%;
             border-collapse: collapse;
-            background: var(--dark);
+            background: rgba(42, 42, 42, 0.5);
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             margin: 1.5rem 0;
+            backdrop-filter: blur(5px);
         }
         
         .feature-table th, .feature-table td {
@@ -460,139 +510,13 @@
             text-align: center;
             padding: 2rem;
             margin-top: 3rem;
-            background: var(--dark);
+            background: rgba(18, 18, 18, 0.8);
             border-top: 1px solid var(--gray);
+            backdrop-filter: blur(5px);
         }
         
         .footer p {
             opacity: 0.7;
-            margin-bottom: 1rem;
-        }
-        
-        /* Social Media Icons */
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 1rem;
-        }
-        
-        .social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-        
-        /* Social media brand colors */
-        .social-icon.facebook { background-color: var(--facebook); }
-        .social-icon.twitter { background-color: var(--twitter); }
-        .social-icon.instagram { 
-            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-        }
-        .social-icon.github { background-color: var(--github); }
-        .social-icon.youtube { background-color: var(--youtube); }
-        .social-icon.telegram { background-color: var(--telegram); }
-        .social-icon.discord { background-color: var(--discord); }
-        
-        .social-icon:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Deployment Section Styles */
-        .deployment-section {
-            background-color: black;
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            text-align: center;
-        }
-        
-        .deployment-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin: 2rem 0;
-        }
-        
-        .deployment-title {
-            margin-top: 0;
-            opacity: 0;
-            animation: fadeIn 3s forwards;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .deploy-button {
-            width: 140px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 0px 15px;
-            background-color: red;
-            border-radius: 10px;
-            border: none;
-            color: white;
-            position: relative;
-            cursor: pointer;
-            font-weight: 900;
-            transition-duration: .2s;
-            background: linear-gradient(0deg, #000, #272727);
-            text-decoration: none;
-        }
-        
-        .deploy-button:before, .deploy-button:after {
-            content: '';
-            position: absolute;
-            left: -2px;
-            top: -2px;
-            border-radius: 10px;
-            background: linear-gradient(45deg, #48ff00, #15ff00, #000000,#000000, #ff0000);
-            background-size: 400%;
-            width: calc(100% + 4px);
-            height: calc(100% + 4px);
-            z-index: -1;
-            animation: steam 10s linear infinite;
-        }
-        
-        @keyframes steam {
-            0% {
-                background-position: 0 0;
-            }
-            
-            50% {
-                background-position: 400% 0;
-            }
-            
-            100% {
-                background-position: 0 0;
-            }
-        }
-        
-        .deploy-button:after {
-            filter: blur(50px);
-        }
-        
-        .deploy-button span {
-            z-index: 1;
-        }
-        
-        .deployment-footer {
-            margin-top: 2rem;
-            padding: 10px 0;
-            text-align: center;
-            font-size: 14px;
         }
         
         /* Responsive Styles */
@@ -646,10 +570,6 @@
                 right: 10px;
                 width: 180px;
             }
-            
-            .social-icons {
-                flex-wrap: wrap;
-            }
         }
         
         /* Animations */
@@ -665,9 +585,9 @@
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 5px 25px rgba(37, 211, 102, 0.5); } /* Green pulse */
-            50% { box-shadow: 0 5px 35px rgba(37, 211, 102, 0.8); } /* Green pulse */
-            100% { box-shadow: 0 5px 25px rgba(37, 211, 102, 0.5); } /* Green pulse */
+            0% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5); }
+            50% { box-shadow: 0 5px 35px rgba(138, 43, 226, 0.8); }
+            100% { box-shadow: 0 5px 25px rgba(138, 43, 226, 0.5); }
         }
         
         @keyframes slideIn {
@@ -723,6 +643,9 @@
     </style>
 </head>
 <body>
+    <!-- Animated Blue-Black Background -->
+    <div class="animated-background"></div>
+    
     <!-- Particle Background -->
     <div class="particles" id="particles"></div>
     
@@ -732,13 +655,13 @@
     </button>
     
     <div class="category-menu" id="categoryMenu">
-        <a href="https://whatsapp.com/channel/0029VbB5wftGehEFdcfrqL3T" class="category-item" target="_blank">
+        <a href="#follow-channel" class="category-item">
             <i class="fas fa-bullhorn"></i> Follow Channel
         </a>
-        <a href="https://six391-wkgc.onrender.com/" class="category-item" target="_blank">
+        <a href="#get-session" class="category-item">
             <i class="fas fa-qrcode"></i> Get Session
         </a>
-        <a href="https://dashboard.heroku.com/new-app?template=https://github.com/caseyweb/CASEYRHODES-XMD" class="category-item" target="_blank">
+        <a href="#deploy-bot" class="category-item">
             <i class="fas fa-rocket"></i> Deploy Bot
         </a>
         <a href="#features" class="category-item">
@@ -746,6 +669,25 @@
         </a>
         <a href="#auto-update" class="category-item">
             <i class="fas fa-sync-alt"></i> Auto Update
+        </a>
+        <!-- Social Media Handles -->
+        <a href="https://instagram.com/caseyrhodes" class="category-item">
+            <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://youtube.com/caseyrhodes" class="category-item">
+            <i class="fab fa-youtube"></i> YouTube
+        </a>
+        <a href="https://github.com/caseyweb" class="category-item">
+            <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="https://t.me/caseyrhodes" class="category-item">
+            <i class="fab fa-telegram"></i> Telegram
+        </a>
+        <a href="https://twitter.com/caseyrhodes" class="category-item">
+            <i class="fab fa-twitter"></i> Twitter
+        </a>
+        <a href="https://discord.gg/caseyrhodes" class="category-item">
+            <i class="fab fa-discord"></i> Discord
         </a>
     </div>
     
@@ -764,7 +706,7 @@
     <div class="floating-audio">
         <span class="audio-text">Now Playing:</span>
         <audio controls autoplay loop>
-            <source src="https://files.catbox.moe/0aoqzx.mp3" type="audio/mpeg">
+            <source src="https://files.catbox.moe/92gu1n.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
         <button class="close-btn" id="minimize-audio">
@@ -777,7 +719,7 @@
             <h2><i class="fas fa-bullhorn"></i> Follow Our Official Channel</h2>
             <p>Stay updated with the latest features and announcements from CASEYRHODES XMD</p>
             <div class="btn-container">
-                <a href="https://whatsapp.com/channel/0029VbB5wftGehEFdcfrqL3T" class="btn btn-channel" target="_blank">
+                <a href="https://whatsapp.com/channel/0029VakUEfb4o7qVdkwPk83E" class="btn btn-channel">
                     <i class="fab fa-whatsapp"></i> Join Channel
                 </a>
             </div>
@@ -787,7 +729,7 @@
             <h2><i class="fas fa-qrcode"></i> Get Your Session ID</h2>
             <p>Generate your WhatsApp session ID to deploy the bot and start using all the amazing features</p>
             <div class="btn-container">
-                <a href="https://six391-wkgc.onrender.com/" class="btn btn-session" target="_blank">
+                <a href="https://caseypaircode-e6b138f710a8.herokuapp.com/" class="btn btn-session">
                     <i class="fas fa-qrcode"></i> Get Pairing Code
                 </a>
             </div>
@@ -797,43 +739,12 @@
             <h2><i class="fas fa-rocket"></i> Deploy Your Bot</h2>
             <p>Choose your preferred deployment method to get started with CASEYRHODES XMD</p>
             <div class="btn-container">
-                <a href="https://dashboard.heroku.com/new-app?template=https://github.com/caseyweb/CASEYRHODES-XMD" class="btn btn-heroku" target="_blank">
+                <a href="https://dashboard.heroku.com/new-app?template=https://github.com/caseyweb/CASEYRHODES-XMD" class="btn btn-heroku">
                     <i class="fab fa-heroku"></i> Deploy on Heroku
                 </a>
-                <a href="https://github.com/caseyweb/CASEYRHODES-XMD/archive/refs/heads/main.zip" class="btn btn-pterodactyl" target="_blank">
+                <a href="https://github.com/caseyweb/QUEEEN-CHARITY/archive/refs/heads/main.zip" class="btn btn-pterodactyl">
                     <i class="fas fa-server"></i> Download for Pterodactyl
                 </a>
-            </div>
-        </div>
-
-        <!-- New Deployment Section -->
-        <div class="section deployment-section" id="deployment">
-            <h2><i class="fas fa-cloud-upload-alt"></i> Deploy on Multiple Platforms</h2>
-            <p>Choose from various platforms to deploy your CASEYRHODES XMD bot</p>
-            
-            <div class="deployment-container">
-                <h3 class="deployment-title">DEPLOY ON</h3>
-                <a href="https://dashboard.heroku.com/new?template=https://github.com/caseyweb/CASEYRHODES-XMD/tree/main" class="deploy-button" target="_blank"> <span>HEROKU</span> </a>
-                <a href="https://dashboard.render.com/web/new" class="deploy-button" target="_blank"> <span>RENDER</span> </a>
-                <a href="https://host.talkdrove.com/dashboard/select-bot/prepare-deployment?botId=39" class="deploy-button" target="_blank"> <span>TALKDROVE</span> </a>
-                <a href="https://repl.it/github/caseyweb/CASEYRHODES-XMD" class="deploy-button" target="_blank"> <span>REPLIT</span> </a>
-                <a href="https://github.com/codespaces/new" class="deploy-button" target="_blank"> <span>CODESPACE</span> </a>
-                <a href="https://glitch.com/signup" class="deploy-button" target="_blank"> <span>GLITCH</span> </a>
-                <a href="https://railway.app/new" class="deploy-button" target="_blank"> <span>RAILWAY</span> </a>
-                
-                <p>REPORT ERROR</p>
-                <a href="https://wa.me/++254781496274?text=HAVE_ERROR_CASEYRHODES" class="deploy-button" target="_blank"> <span>ERROR</span> </a>
-                
-                <div id="music-player">
-                    <audio controls autoplay loop>
-                        <source src="https://files.catbox.moe/92gu1n.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-            </div>
-            
-            <div class="deployment-footer">
-                ᴍᴀᴅᴇ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ<span id="currentYear"></span>
             </div>
         </div>
 
@@ -902,8 +813,35 @@ jobs:
             </div>
             
             <div class="btn-container">
-                <a href="https://wa.me/+254112192119?text=𝐂𝐀𝐒𝐄𝐘𝐑𝐇𝐎𝐃𝐄𝐒+𝐗𝐌𝐃+𝐕𝟐" class="btn btn-support" target="_blank">
+                <a href="https://wa.me/+254112192119?text=𝐂𝐀𝐒𝐄𝐘𝐑𝐇𝐎𝐃𝐄𝐒+𝐗𝐌𝐃+𝐕𝟐" class="btn btn-support">
                     <i class="fab fa-whatsapp"></i> Report Issues
+                </a>
+            </div>
+        </div>
+        
+        <!-- Social Media Section -->
+        <div class="section" id="social-media">
+            <h2><i class="fas fa-share-alt"></i> Connect With Us</h2>
+            <p>Follow us on social media to stay updated with the latest news and updates</p>
+            
+            <div class="btn-container">
+                <a href="https://instagram.com/caseyrhodes" class="btn btn-instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://youtube.com/caseyrhodes" class="btn btn-youtube">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+                <a href="https://github.com/caseyweb" class="btn btn-github">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://t.me/caseyrhodes" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Telegram
+                </a>
+                <a href="https://twitter.com/caseyrhodes" class="btn btn-twitter">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                <a href="https://discord.gg/caseyrhodes" class="btn btn-discord">
+                    <i class="fab fa-discord"></i> Discord
                 </a>
             </div>
         </div>
@@ -912,31 +850,6 @@ jobs:
     <div class="footer">
         <div class="container">
             <p>&copy; 2023 CASEYRHODES XMD. All rights reserved.</p>
-            
-            <!-- Social Media Icons with actual brand colors -->
-            <div class="social-icons">
-                <a href="#" class="social-icon facebook" title="Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" class="social-icon twitter" title="Twitter">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="social-icon instagram" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-icon github" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#" class="social-icon youtube" title="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-                <a href="#" class="social-icon telegram" title="Telegram">
-                    <i class="fab fa-telegram"></i>
-                </a>
-                <a href="#" class="social-icon discord" title="Discord">
-                    <i class="fab fa-discord"></i>
-                </a>
-            </div>
         </div>
     </div>
 
@@ -1009,7 +922,7 @@ jobs:
                 showAudioBtn.innerHTML = '<i class="fas fa-music"></i>';
                 showAudioBtn.style.position = 'fixed';
                 showAudioBtn.style.bottom = '20px';
-                showAudioBtn.style.right: '20px';
+                showAudioBtn.style.right = '20px';
                 showAudioBtn.style.width = '50px';
                 showAudioBtn.style.height = '50px';
                 showAudioBtn.style.borderRadius = '50%';
@@ -1050,31 +963,21 @@ jobs:
         // Smooth scroll for category items
         document.querySelectorAll('.category-item').forEach(item => {
             item.addEventListener('click', function(e) {
-                // Only prevent default for anchor links that don't have external targets
-                if (!this.getAttribute('target') || this.getAttribute('target') !== '_blank') {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    
-                    // Check if it's a section ID (starts with #)
-                    if (targetId && targetId.startsWith('#')) {
-                        const targetSection = document.querySelector(targetId);
-                        
-                        if (targetSection) {
-                            window.scrollTo({
-                                top: targetSection.offsetTop - 20,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
                     
                     // Close menu after selection
                     categoryMenu.classList.remove('active');
                 }
             });
         });
-        
-        // Set current year in footer
-        document.getElementById('currentYear').textContent = ' ' + new Date().getFullYear();
         
         // Initialize on page load
         window.addEventListener('load', function() {
